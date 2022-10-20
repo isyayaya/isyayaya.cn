@@ -1,0 +1,278 @@
+<!DOCTYPE html><html lang="ch" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"><title>react_router_dom V5与V6 的区别 | YaYa blogs</title><meta name="author" content="YaYa"><meta name="copyright" content="YaYa"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="1. v6 中 Switch 名称变为 Routes代码如下： 123456789101112131415161718import &amp;#123; Routes &amp;#125; from &quot;react-router-dom&quot;;function App() &amp;#123;return (   &lt;div&gt;   &lt;Routes&gt;    ..... 	 &lt;&#x2F;Ro">
+<meta property="og:type" content="article">
+<meta property="og:title" content="react_router_dom V5与V6 的区别">
+<meta property="og:url" content="http://example.com/2020/10/20/react-router-dom/index.html">
+<meta property="og:site_name" content="YaYa blogs">
+<meta property="og:description" content="1. v6 中 Switch 名称变为 Routes代码如下： 123456789101112131415161718import &amp;#123; Routes &amp;#125; from &quot;react-router-dom&quot;;function App() &amp;#123;return (   &lt;div&gt;   &lt;Routes&gt;    ..... 	 &lt;&#x2F;Ro">
+<meta property="og:locale">
+<meta property="og:image" content="http://example.com/img/head.jpg">
+<meta property="article:published_time" content="2020-10-20T10:14:34.000Z">
+<meta property="article:modified_time" content="2022-10-20T10:20:58.045Z">
+<meta property="article:author" content="YaYa">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/img/head.jpg"><link rel="shortcut icon" href="/img/head.jpg"><link rel="canonical" href="http://example.com/2020/10/20/react-router-dom/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: 'Copy successfully',
+    error: 'Copy error',
+    noSupport: 'The browser does not support'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: 'Just',
+    min: 'minutes ago',
+    hour: 'hours ago',
+    day: 'days ago',
+    month: 'months ago'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'react_router_dom V5与V6 的区别',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2022-10-20 18:20:58'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 6.3.0"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">Loading...</div></div></div><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/img/head.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">6</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">0</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">0</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 菜单</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li></ul></div></div></div></div><div class="post" id="body-wrap"><header class="not-top-img" id="page-header"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">YaYa blogs</a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 菜单</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li></ul></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav></header><main class="layout" id="content-inner"><div id="post"><div id="post-info"><h1 class="post-title">react_router_dom V5与V6 的区别</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">Created</span><time class="post-meta-date-created" datetime="2020-10-20T10:14:34.000Z" title="Created 2020-10-20 18:14:34">2020-10-20</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2022-10-20T10:20:58.045Z" title="Updated 2022-10-20 18:20:58">2022-10-20</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="react_router_dom V5与V6 的区别"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">Post View:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div><article class="post-content" id="article-container"><h2 id="1-v6-中-Switch-名称变为-Routes"><a href="#1-v6-中-Switch-名称变为-Routes" class="headerlink" title="1. v6 中 Switch 名称变为 Routes"></a>1. v6 中 Switch 名称变为 Routes</h2><p>代码如下：</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">Routes</span> &#125; <span class="keyword">from</span> <span class="string">&quot;react-router-dom&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">App</span>(<span class="params"></span>) &#123;</span><br><span class="line"></span><br><span class="line"><span class="keyword">return</span> (</span><br><span class="line"></span><br><span class="line">   <span class="language-xml"><span class="tag">&lt;<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="language-xml"></span></span><br><span class="line"><span class="language-xml"></span></span><br><span class="line"><span class="language-xml">   <span class="tag">&lt;<span class="name">Routes</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">    .....</span></span><br><span class="line"><span class="language-xml"> 	 <span class="tag">&lt;/<span class="name">Routes</span>&gt;</span></span></span><br><span class="line"><span class="language-xml"></span></span><br><span class="line"><span class="language-xml">  <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line"></span><br><span class="line">  );</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+
+<h2 id="2-v6-的变化"><a href="#2-v6-的变化" class="headerlink" title="2. v6 的变化"></a>2. v6 <Route>的变化</h2><p>不再支持子组件和 component , 改为 element</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&lt;<span class="title class_">Route</span> path=<span class="string">&quot;/home&quot;</span> &gt;</span><br><span class="line"></span><br><span class="line"><span class="language-xml"><span class="tag">&lt;<span class="name">Index</span> /&gt;</span></span></span><br><span class="line"></span><br><span class="line">&lt;/<span class="title class_">Route</span>&gt;</span><br><span class="line"></span><br><span class="line"><span class="language-xml"><span class="tag">&lt;<span class="name">Route</span> <span class="attr">path</span>=<span class="string">&#x27;/login&#x27;</span> <span class="attr">component</span>=<span class="string">&#123;Login&#125;</span>&gt;</span><span class="tag">&lt;/<span class="name">Route</span>&gt;</span></span></span><br></pre></td></tr></table></figure>
+
+
+
+
+
+
+<p>改为</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&lt;<span class="title class_">Route</span> path=<span class="string">&quot;/home&quot;</span> element=&#123; <span class="language-xml"><span class="tag">&lt;<span class="name">Index</span> /&gt;</span></span> &#125;&gt;</span><br><span class="line"></span><br><span class="line">&lt;/<span class="title class_">Route</span>&gt;</span><br><span class="line"></span><br><span class="line"><span class="language-xml"><span class="tag">&lt;<span class="name">Route</span> <span class="attr">path</span>=<span class="string">&#x27;/login&#x27;</span> <span class="attr">element</span>=<span class="string">&#123;</span> &lt;<span class="attr">Login</span> /&gt;</span> &#125;&gt;</span></span><br><span class="line"><span class="language-xml"></span></span><br><span class="line"><span class="language-xml"><span class="tag">&lt;/<span class="name">Route</span>&gt;</span></span></span><br></pre></td></tr></table></figure>
+
+
+
+
+<p>注：</p>
+<p>element 的值为组件标签，不要忘记写成标签形式</p>
+<p>Route 标签必须包含在Routes标签里，会不然报错</p>
+<h2 id="3-v6-中，exact-属性不再需要"><a href="#3-v6-中，exact-属性不再需要" class="headerlink" title="3. v6 中，exact 属性不再需要"></a>3. v6 中，exact 属性不再需要</h2><p>v6 内部算法改变，不再需要加exact实现精确匹配路由，默认就是匹配完整路径。</p>
+<p>如果需要旧的行为，路径后加&#x2F;*</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;<span class="title class_">Route</span> path=<span class="string">&quot;/products/*&quot;</span> element=&#123;<span class="language-xml"><span class="tag">&lt;<span class="name">Products</span> /&gt;</span></span>&#125; /&gt;</span><br><span class="line"></span><br><span class="line"><span class="language-xml"><span class="tag">&lt;<span class="name">Route</span> <span class="attr">path</span>=<span class="string">&quot;/products/:productId&quot;</span> <span class="attr">element</span>=<span class="string">&#123;</span>&lt;<span class="attr">ProductDetail</span> /&gt;</span>&#125; /&gt;</span></span><br></pre></td></tr></table></figure>
+
+
+
+<p>route属性  路由是否区分大小写 </p>
+<p>caseSensitive&#x3D;{true}</p>
+<h2 id="4-v6-中，Route-先后顺序不再重要，React-Router-能够自动找出最优匹配路径"><a href="#4-v6-中，Route-先后顺序不再重要，React-Router-能够自动找出最优匹配路径" class="headerlink" title="4. v6 中，Route 先后顺序不再重要，React Router 能够自动找出最优匹配路径"></a>4. v6 中，Route 先后顺序不再重要，React Router 能够自动找出最优匹配路径</h2><h2 id="5-v6-保留Link，NavLink，-但是NavLink的activeClassName属性被移除"><a href="#5-v6-保留Link，NavLink，-但是NavLink的activeClassName属性被移除" class="headerlink" title="5.v6 保留Link，NavLink， 但是NavLink的activeClassName属性被移除"></a>5.v6 保留Link，NavLink， 但是NavLink的activeClassName属性被移除</h2><p>删除了 activeClassName 样式，如果想自己给它设置想要的highligh样式.</p>
+<p>可以通过style属性修改actived的状态, 通过箭头函数接收到isActive参数值;</p>
+<p>style接收一个css样式数据返回值进行修改<NavLink> active状态样式。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">NavLink</span> &#125; <span class="keyword">from</span> <span class="string">&quot;react-router-dom&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="keyword">function</span> <span class="title function_">Invoices</span>(<span class="params"></span>) &#123;</span><br><span class="line"></span><br><span class="line"><span class="keyword">return</span> (</span><br><span class="line"></span><br><span class="line"><span class="language-xml"><span class="tag">&lt;<span class="name">div</span> <span class="attr">style</span>=<span class="string">&#123;&#123;</span> <span class="attr">display:</span> &quot;<span class="attr">flex</span>&quot; &#125;&#125;&gt;</span></span></span><br><span class="line"><span class="language-xml"></span></span><br><span class="line"><span class="language-xml"></span></span><br><span class="line"><span class="language-xml"><span class="tag">&lt;<span class="name">NavLink</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml"></span></span></span><br><span class="line"><span class="tag"><span class="language-xml"><span class="attr">style</span>=<span class="string">&#123;(&#123;</span> <span class="attr">isActive</span> &#125;) =&gt;</span> &#123;</span></span><br><span class="line"><span class="language-xml"></span></span><br><span class="line"><span class="language-xml">  return &#123;</span></span><br><span class="line"><span class="language-xml"></span></span><br><span class="line"><span class="language-xml">  display: &quot;block&quot;,</span></span><br><span class="line"><span class="language-xml"></span></span><br><span class="line"><span class="language-xml">  margin: &quot;1rem 0&quot;,</span></span><br><span class="line"><span class="language-xml"></span></span><br><span class="line"><span class="language-xml">  color: isActive ? &quot;red&quot; : &quot;&quot;</span></span><br><span class="line"><span class="language-xml"></span></span><br><span class="line"><span class="language-xml">            &#125;;</span></span><br><span class="line"><span class="language-xml">    </span></span><br><span class="line"><span class="language-xml">        &#125;&#125;</span></span><br><span class="line"><span class="language-xml"></span></span><br><span class="line"><span class="language-xml"></span></span><br><span class="line"><span class="language-xml"></span></span><br><span class="line"><span class="language-xml">to=&#123;`/invoices`&#125;</span></span><br><span class="line"><span class="language-xml"></span></span><br><span class="line"><span class="language-xml">&gt;</span></span><br><span class="line"><span class="language-xml"></span></span><br><span class="line"><span class="language-xml"><span class="tag">&lt;/<span class="name">NavLink</span>&gt;</span></span></span><br><span class="line"><span class="language-xml"></span></span><br><span class="line"><span class="language-xml"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line"></span><br><span class="line">  );</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">// or</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&lt;<span class="title class_">NavLink</span> className=&#123;<span class="function">(<span class="params">&#123; isActive &#125;</span>) =&gt;</span> isActive ? <span class="string">&quot;red&quot;</span> : <span class="string">&quot;blue&quot;</span>&#125; /&gt;</span><br></pre></td></tr></table></figure>
+
+
+<h2 id="6-v6-移除-Redirect组件，改为使用-Navigate"><a href="#6-v6-移除-Redirect组件，改为使用-Navigate" class="headerlink" title="6. v6 移除 Redirect组件，改为使用 Navigate:"></a>6. v6 移除 Redirect组件，改为使用 Navigate:</h2><figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">#<span class="number">5</span></span><br><span class="line">&lt;<span class="title class_">Redirect</span> to=<span class="string">&quot;/home&quot;</span> /&gt;</span><br><span class="line"></span><br><span class="line">#<span class="number">6</span></span><br><span class="line">&lt;<span class="title class_">Route</span> path=<span class="string">&quot;/&quot;</span> element =&#123;<span class="language-xml"><span class="tag">&lt;<span class="name">Navigate</span> <span class="attr">replace</span> <span class="attr">to</span>=<span class="string">&quot;/welcome&quot;</span> /&gt;</span></span>&#125; /&gt;</span><br></pre></td></tr></table></figure>
+
+
+
+<p><Navigate replace to="/welcome" /> 是对旧的 Redirect 的完整取代。</p>
+<p>replace 属性也可以省略，不过行为由 replace 改为 push</p>
+<h2 id="7-v6-嵌套路由改为相对匹配"><a href="#7-v6-嵌套路由改为相对匹配" class="headerlink" title="7. v6 嵌套路由改为相对匹配"></a>7. v6 嵌套路由改为相对匹配</h2><p>嵌套路由必须放在<Routes> </Routes>中，且使用相对路径，不再像 v5 那样必须提供完整路径，因此路径变短。</p>
+<pre><code>&lt;Route path=&#39;/about&#39; element=&#123;&lt;About /&gt;&#125;&gt;
+    &lt;Route index element=&#123;&lt;Address /&gt;&#125; /&gt;
+
+    &lt;Route path=&#39;address&#39; element=&#123;&lt;Address /&gt;&#125;&gt;&lt;/Route&gt;
+
+    &lt;Route path=&#39;information&#39; element=&#123;&lt;Information /&gt;&#125;&gt;&lt;/Route&gt;
+
+    &lt;Route path=&#39;joinus&#39; element=&#123;&lt;Join /&gt;&#125;&gt;&lt;/Route&gt;
+&lt;/Route&gt;
+</code></pre>
+<h2 id="8-使用Outlet组件，此组件是一个占位符，告诉-React-Router-嵌套的内容应该放到哪里。"><a href="#8-使用Outlet组件，此组件是一个占位符，告诉-React-Router-嵌套的内容应该放到哪里。" class="headerlink" title="8.使用Outlet组件，此组件是一个占位符，告诉 React Router 嵌套的内容应该放到哪里。"></a>8.使用Outlet组件，此组件是一个占位符，告诉 React Router 嵌套的内容应该放到哪里。</h2><p>import {Outlet} from “react-router-dom”;</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> <span class="title function_">Welcome</span>=(<span class="params"></span>) =&gt; &#123;</span><br><span class="line"></span><br><span class="line"><span class="keyword">return</span></span><br><span class="line"></span><br><span class="line"><span class="language-xml"><span class="tag">&lt;<span class="name">section</span>&gt;</span></span></span><br><span class="line"><span class="language-xml"></span></span><br><span class="line"><span class="language-xml"></span></span><br><span class="line"><span class="language-xml">  <span class="tag">&lt;<span class="name">h1</span>&gt;</span>Welcome<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span></span><br><span class="line"><span class="language-xml"></span></span><br><span class="line"><span class="language-xml">  <span class="tag">&lt;<span class="name">Outlet</span> /&gt;</span></span></span><br><span class="line"><span class="language-xml"></span></span><br><span class="line"><span class="language-xml"><span class="tag">&lt;/<span class="name">section</span>&gt;</span></span></span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="title class_">Welcome</span>;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+<h2 id="9-使用index-指定默认路由-或者path为空"><a href="#9-使用index-指定默认路由-或者path为空" class="headerlink" title="9. 使用index 指定默认路由, 或者path为空"></a>9. 使用index 指定默认路由, 或者path为空</h2><p>当嵌套路由有多个子路由的时候，可以增加 index 属性来指定默认路由。</p>
+<pre><code>function App()
+
+  return (
+    &lt;Routes&gt;
+
+      &lt;Route path=&quot;/&quot; element=&#123;&lt;Layout /&gt;&#125;&gt;
+
+      &lt;Route index element=&#123;&lt;About /&gt;&#125; /&gt;
+
+      &lt;Route path=&quot;user&quot; element=&#123;&lt;User /&gt;&#125; /&gt;
+
+      &lt;Route path=&quot;about&quot; element=&#123;&lt;About /&gt;&#125; /&gt;
+
+      &lt;/Route&gt;
+
+    &lt;/Routes&gt;
+       );
+
+&#125;
+</code></pre>
+<p>或者</p>
+<p>设置path为空，来指定默认路由，代码如下：</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> router  =[&#123;</span><br><span class="line"></span><br><span class="line">  <span class="attr">path</span>: <span class="string">&quot;/home&quot;</span>,</span><br><span class="line"></span><br><span class="line">  element :<span class="language-xml">&lt;Home/ &gt;,</span></span><br><span class="line"><span class="language-xml"></span></span><br><span class="line"><span class="language-xml">  children: [</span></span><br><span class="line"><span class="language-xml">&#123;</span></span><br><span class="line"><span class="language-xml"></span></span><br><span class="line"><span class="language-xml">path:&quot;&quot;,</span></span><br><span class="line"><span class="language-xml"></span></span><br><span class="line"><span class="language-xml">element:<span class="tag">&lt;<span class="name">News</span>/&gt;</span></span></span><br><span class="line"><span class="language-xml"></span></span><br><span class="line"><span class="language-xml">&#125;,</span></span><br><span class="line"><span class="language-xml"></span></span><br><span class="line"><span class="language-xml">&#123;</span></span><br><span class="line"><span class="language-xml"></span></span><br><span class="line"><span class="language-xml">path: &quot; news &quot; ,</span></span><br><span class="line"><span class="language-xml"></span></span><br><span class="line"><span class="language-xml">element:<span class="tag">&lt;<span class="name">News</span>/&gt;</span></span></span><br><span class="line"><span class="language-xml"></span></span><br><span class="line"><span class="language-xml">&#125;</span></span><br><span class="line"><span class="language-xml">  ]</span></span><br><span class="line"><span class="language-xml"></span></span><br><span class="line"><span class="language-xml">&#125;]</span></span><br></pre></td></tr></table></figure>
+
+
+
+
+
+
+<h2 id="10-v6-用useNavigate实现编程式导航，useHistory被移除"><a href="#10-v6-用useNavigate实现编程式导航，useHistory被移除" class="headerlink" title="10. v6 用useNavigate实现编程式导航，useHistory被移除"></a>10. v6 用useNavigate实现编程式导航，useHistory被移除</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123;useNavigate&#125; <span class="keyword">from</span> <span class="string">&quot;react-router-dom&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> navigate = <span class="title function_">useNavigate</span>();</span><br><span class="line"></span><br><span class="line"><span class="title function_">navigate</span>(<span class="string">&quot;/welcome&quot;</span>);   <span class="comment">// push</span></span><br><span class="line"> <span class="title function_">navigate</span>(<span class="string">&#x27;/b&#x27;</span>, &#123; <span class="attr">state</span>: &#123; <span class="attr">name</span>: <span class="string">&#x27;zhou&#x27;</span> &#125; &#125;)</span><br></pre></td></tr></table></figure>
+
+
+<p>如果要重定向:</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="title function_">navigate</span>(<span class="string">&quot;/welcome&quot;</span>,&#123;<span class="attr">replace</span>:<span class="literal">true</span>&#125;);</span><br></pre></td></tr></table></figure>
+
+
+
+<p>除此之外，还可以使用navigate(-1)后退到前一页，使用navigate(-2)后退到前一页的前一页，navigate(1)前向导航，依此类推。</p>
+<p>使用 useLocation 接收 useNavigate传递过来的值</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 接收跳转传过来的值</span></span><br><span class="line"><span class="keyword">import</span> &#123; useLocation &#125; <span class="keyword">from</span> <span class="string">&#x27;react-router-dom&#x27;</span></span><br><span class="line"><span class="keyword">const</span> location = <span class="title function_">useLocation</span>()</span><br><span class="line"><span class="keyword">const</span> &#123; state &#125; = location</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(location, state);</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<h2 id="11-hooks-中获取参数的方法"><a href="#11-hooks-中获取参数的方法" class="headerlink" title="11. hooks 中获取参数的方法"></a>11. hooks 中获取参数的方法</h2><p>useParams</p>
+<p>返回当前动态路由参数 </p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">Profile</span>(<span class="params"></span>) &#123;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">const</span> params = <span class="title function_">useParams</span>()</span><br><span class="line"></span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(params.<span class="property">userId</span>)</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> ()</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+
+<p>useSearchParams</p>
+<p>使用 useSearchParams hook 来访问查询参数(&#x2F;xx&#x2F;xx?userId&#x3D;123)。其用法和 useState 类似，会返回当前对象和更改它的方法。</p>
+<p>更改 searchParams 时，必须传入所有的查询参数，否则会覆盖已有参数。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">Profile</span>(<span class="params"></span>) &#123;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">const</span> params = <span class="title function_">useSearchParams</span>()</span><br><span class="line"></span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(params.<span class="property">userId</span>)</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> ()</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+
+<h2 id="12-useRoutes-声明式的路由配置方式"><a href="#12-useRoutes-声明式的路由配置方式" class="headerlink" title="12. useRoutes 声明式的路由配置方式"></a>12. useRoutes 声明式的路由配置方式</h2><p>声明式路由中，不能写index, 可以让path: “” , 来实现显示默认组件;</p>
+<p>useRoutes函数，会返回已经渲染好的路由元素</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> element = <span class="title function_">useRoutes</span>([</span><br><span class="line">&#123;</span><br><span class="line"></span><br><span class="line">  <span class="attr">path</span>: <span class="string">&quot;/&quot;</span>,</span><br><span class="line"></span><br><span class="line">  <span class="attr">element</span>: <span class="language-xml"><span class="tag">&lt;<span class="name">Dashboard</span> /&gt;</span></span>,</span><br><span class="line"></span><br><span class="line">  <span class="attr">children</span>: [</span><br><span class="line"></span><br><span class="line">      &#123;</span><br><span class="line"></span><br><span class="line">        <span class="attr">path</span>: <span class="string">&quot;&quot;</span>,</span><br><span class="line"></span><br><span class="line">        <span class="attr">element</span>: <span class="language-xml"><span class="tag">&lt;<span class="name">DashboardMessages</span> /&gt;</span></span></span><br><span class="line"></span><br><span class="line">      &#125;,</span><br><span class="line"></span><br><span class="line">      &#123;</span><br><span class="line"></span><br><span class="line">        <span class="attr">path</span>: <span class="string">&quot;/messages&quot;</span>,</span><br><span class="line"></span><br><span class="line">        <span class="attr">element</span>: <span class="language-xml"><span class="tag">&lt;<span class="name">DashboardMessages</span> /&gt;</span></span></span><br><span class="line"></span><br><span class="line">      &#125;,</span><br><span class="line"></span><br><span class="line">      &#123; <span class="attr">path</span>: <span class="string">&quot;/tasks&quot;</span>, <span class="attr">element</span>: <span class="language-xml"><span class="tag">&lt;<span class="name">DashboardTasks</span> /&gt;</span></span> &#125;</span><br><span class="line"></span><br><span class="line">  &#125;,</span><br><span class="line"></span><br><span class="line">  &#123; <span class="attr">path</span>: <span class="string">&quot;/team&quot;</span>, <span class="attr">element</span>: <span class="language-xml"><span class="tag">&lt;<span class="name">AboutPage</span> /&gt;</span></span> &#125;</span><br><span class="line"></span><br><span class="line">]);</span><br></pre></td></tr></table></figure></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">Author: </span><span class="post-copyright-info"><a href="http://example.com">YaYa</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">Link: </span><span class="post-copyright-info"><a href="http://example.com/2020/10/20/react-router-dom/">http://example.com/2020/10/20/react-router-dom/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">Copyright Notice: </span><span class="post-copyright-info">All articles in this blog are licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless stating additionally.</span></div></div><div class="tag_share"><div class="post-meta__tag-list"></div><div class="post_share"><div class="social-share" data-image="/img/head.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2020/10/20/%E5%A6%82%E4%BD%95%E4%BF%AE%E6%94%B9react%E9%A1%B9%E7%9B%AE%E7%AB%AF%E5%8F%A3%E5%8F%B7/"><img class="prev-cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">Previous Post</div><div class="prev_info">如何修改react项目端口号</div></div></a></div><div class="next-post pull-right"><a href="/2017/09/26/css%E9%80%89%E6%8B%A9%E5%99%A8/"><img class="next-cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">Next Post</div><div class="next_info">css选择器</div></div></a></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="/img/head.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">YaYa</div><div class="author-info__description"></div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">6</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">0</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">0</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/isyayaya"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>Announcement</span></div><div class="announcement_content">is yaya Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>Catalog</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-v6-%E4%B8%AD-Switch-%E5%90%8D%E7%A7%B0%E5%8F%98%E4%B8%BA-Routes"><span class="toc-number">1.</span> <span class="toc-text">1. v6 中 Switch 名称变为 Routes</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-v6-%E7%9A%84%E5%8F%98%E5%8C%96"><span class="toc-number">2.</span> <span class="toc-text">2. v6 的变化</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-v6-%E4%B8%AD%EF%BC%8Cexact-%E5%B1%9E%E6%80%A7%E4%B8%8D%E5%86%8D%E9%9C%80%E8%A6%81"><span class="toc-number">3.</span> <span class="toc-text">3. v6 中，exact 属性不再需要</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-v6-%E4%B8%AD%EF%BC%8CRoute-%E5%85%88%E5%90%8E%E9%A1%BA%E5%BA%8F%E4%B8%8D%E5%86%8D%E9%87%8D%E8%A6%81%EF%BC%8CReact-Router-%E8%83%BD%E5%A4%9F%E8%87%AA%E5%8A%A8%E6%89%BE%E5%87%BA%E6%9C%80%E4%BC%98%E5%8C%B9%E9%85%8D%E8%B7%AF%E5%BE%84"><span class="toc-number">4.</span> <span class="toc-text">4. v6 中，Route 先后顺序不再重要，React Router 能够自动找出最优匹配路径</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-v6-%E4%BF%9D%E7%95%99Link%EF%BC%8CNavLink%EF%BC%8C-%E4%BD%86%E6%98%AFNavLink%E7%9A%84activeClassName%E5%B1%9E%E6%80%A7%E8%A2%AB%E7%A7%BB%E9%99%A4"><span class="toc-number">5.</span> <span class="toc-text">5.v6 保留Link，NavLink， 但是NavLink的activeClassName属性被移除</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6-v6-%E7%A7%BB%E9%99%A4-Redirect%E7%BB%84%E4%BB%B6%EF%BC%8C%E6%94%B9%E4%B8%BA%E4%BD%BF%E7%94%A8-Navigate"><span class="toc-number">6.</span> <span class="toc-text">6. v6 移除 Redirect组件，改为使用 Navigate:</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#7-v6-%E5%B5%8C%E5%A5%97%E8%B7%AF%E7%94%B1%E6%94%B9%E4%B8%BA%E7%9B%B8%E5%AF%B9%E5%8C%B9%E9%85%8D"><span class="toc-number">7.</span> <span class="toc-text">7. v6 嵌套路由改为相对匹配</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#8-%E4%BD%BF%E7%94%A8Outlet%E7%BB%84%E4%BB%B6%EF%BC%8C%E6%AD%A4%E7%BB%84%E4%BB%B6%E6%98%AF%E4%B8%80%E4%B8%AA%E5%8D%A0%E4%BD%8D%E7%AC%A6%EF%BC%8C%E5%91%8A%E8%AF%89-React-Router-%E5%B5%8C%E5%A5%97%E7%9A%84%E5%86%85%E5%AE%B9%E5%BA%94%E8%AF%A5%E6%94%BE%E5%88%B0%E5%93%AA%E9%87%8C%E3%80%82"><span class="toc-number">8.</span> <span class="toc-text">8.使用Outlet组件，此组件是一个占位符，告诉 React Router 嵌套的内容应该放到哪里。</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#9-%E4%BD%BF%E7%94%A8index-%E6%8C%87%E5%AE%9A%E9%BB%98%E8%AE%A4%E8%B7%AF%E7%94%B1-%E6%88%96%E8%80%85path%E4%B8%BA%E7%A9%BA"><span class="toc-number">9.</span> <span class="toc-text">9. 使用index 指定默认路由, 或者path为空</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#10-v6-%E7%94%A8useNavigate%E5%AE%9E%E7%8E%B0%E7%BC%96%E7%A8%8B%E5%BC%8F%E5%AF%BC%E8%88%AA%EF%BC%8CuseHistory%E8%A2%AB%E7%A7%BB%E9%99%A4"><span class="toc-number">10.</span> <span class="toc-text">10. v6 用useNavigate实现编程式导航，useHistory被移除</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#11-hooks-%E4%B8%AD%E8%8E%B7%E5%8F%96%E5%8F%82%E6%95%B0%E7%9A%84%E6%96%B9%E6%B3%95"><span class="toc-number">11.</span> <span class="toc-text">11. hooks 中获取参数的方法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#12-useRoutes-%E5%A3%B0%E6%98%8E%E5%BC%8F%E7%9A%84%E8%B7%AF%E7%94%B1%E9%85%8D%E7%BD%AE%E6%96%B9%E5%BC%8F"><span class="toc-number">12.</span> <span class="toc-text">12. useRoutes 声明式的路由配置方式</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>Recent Post</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2020/10/21/react%E5%9B%BE%E7%89%87%E9%AA%8C%E8%AF%81%E7%A0%81/" title="react生成图片验证码">react生成图片验证码</a><time datetime="2020-10-21T11:20:19.000Z" title="Created 2020-10-21 19:20:19">2020-10-21</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2020/10/20/%E5%A6%82%E4%BD%95%E4%BF%AE%E6%94%B9react%E9%A1%B9%E7%9B%AE%E7%AB%AF%E5%8F%A3%E5%8F%B7/" title="如何修改react项目端口号">如何修改react项目端口号</a><time datetime="2020-10-20T12:32:14.000Z" title="Created 2020-10-20 20:32:14">2020-10-20</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2020/10/20/react-router-dom/" title="react_router_dom V5与V6 的区别">react_router_dom V5与V6 的区别</a><time datetime="2020-10-20T10:14:34.000Z" title="Created 2020-10-20 18:14:34">2020-10-20</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2017/09/26/css%E9%80%89%E6%8B%A9%E5%99%A8/" title="css选择器">css选择器</a><time datetime="2017-09-26T04:22:12.000Z" title="Created 2017-09-26 12:22:12">2017-09-26</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2017/09/25/%E7%9B%92%E5%AD%90%E6%A8%A1%E5%9E%8B/" title="对盒子模型的理解"><img src="https://img-blog.csdnimg.cn/a89c2fdd216346b8bfa0cf681cec0154.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="对盒子模型的理解"/></a><div class="content"><a class="title" href="/2017/09/25/%E7%9B%92%E5%AD%90%E6%A8%A1%E5%9E%8B/" title="对盒子模型的理解">对盒子模型的理解</a><time datetime="2017-09-25T15:32:04.000Z" title="Created 2017-09-25 23:32:04">2017-09-25</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2022 By YaYa</div><div class="framework-info"><span>Framework </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>Theme </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="Read Mode"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="Toggle Between Light And Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="Toggle between single-column and double-column"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="Setting"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="Table Of Contents"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="Back To Top"><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.min.js"></script><script>var preloader = {
+  endLoading: () => {
+    document.body.style.overflow = 'auto';
+    document.getElementById('loading-box').classList.add("loaded")
+  },
+  initLoading: () => {
+    document.body.style.overflow = '';
+    document.getElementById('loading-box').classList.remove("loaded")
+
+  }
+}
+window.addEventListener('load',preloader.endLoading())</script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
