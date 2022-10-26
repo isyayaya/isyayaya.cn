@@ -1,0 +1,302 @@
+<!DOCTYPE html><html lang="ch" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"><title>面试题总结 | YaYa blogs</title><meta name="author" content="YaYa"><meta name="copyright" content="YaYa"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="说说你对盒子模型的理解当对一个文档进行布局的时候，浏览器的渲染引擎会根据标准之一的 CSS 基础框盒模型，将所有元素表示为一个个矩形的盒子 这个盒子就是盒模型 一个盒子由四个部分组成：content(实际内容) padding(内边距) border(边框) margin(外边距) 盒子模型可以分为W3C标准盒子模型 IE怪异盒子模型 标准盒子模型，是浏览器默认的盒子模型 width&#x2F;">
+<meta property="og:type" content="article">
+<meta property="og:title" content="面试题总结">
+<meta property="og:url" content="http://example.com/2022/10/26/%E9%9D%A2%E8%AF%95%E9%A2%98%E6%80%BB%E7%BB%93/index.html">
+<meta property="og:site_name" content="YaYa blogs">
+<meta property="og:description" content="说说你对盒子模型的理解当对一个文档进行布局的时候，浏览器的渲染引擎会根据标准之一的 CSS 基础框盒模型，将所有元素表示为一个个矩形的盒子 这个盒子就是盒模型 一个盒子由四个部分组成：content(实际内容) padding(内边距) border(边框) margin(外边距) 盒子模型可以分为W3C标准盒子模型 IE怪异盒子模型 标准盒子模型，是浏览器默认的盒子模型 width&#x2F;">
+<meta property="og:locale">
+<meta property="og:image" content="http://example.com/img/head.jpg">
+<meta property="article:published_time" content="2022-10-26T11:18:42.000Z">
+<meta property="article:modified_time" content="2022-10-26T11:22:12.685Z">
+<meta property="article:author" content="YaYa">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/img/head.jpg"><link rel="shortcut icon" href="/img/head.jpg"><link rel="canonical" href="http://example.com/2022/10/26/%E9%9D%A2%E8%AF%95%E9%A2%98%E6%80%BB%E7%BB%93/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: 'Copy successfully',
+    error: 'Copy error',
+    noSupport: 'The browser does not support'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: 'Just',
+    min: 'minutes ago',
+    hour: 'hours ago',
+    day: 'days ago',
+    month: 'months ago'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '面试题总结',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: false,
+  postUpdate: '2022-10-26 19:22:12'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><link rel="stylesheet" href="/css/transpancy.css"><meta name="generator" content="Hexo 6.3.0"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">Loading...</div></div></div><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/img/head.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">13</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">0</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">0</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 菜单</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li></ul></div></div></div></div><div class="post" id="body-wrap"><header class="not-top-img" id="page-header"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">YaYa blogs</a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 菜单</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li></ul></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav></header><main class="layout" id="content-inner"><div id="post"><div id="post-info"><h1 class="post-title">面试题总结</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">Created</span><time class="post-meta-date-created" datetime="2022-10-26T11:18:42.000Z" title="Created 2022-10-26 19:18:42">2022-10-26</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2022-10-26T11:22:12.685Z" title="Updated 2022-10-26 19:22:12">2022-10-26</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="面试题总结"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">Post View:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div><article class="post-content" id="article-container"><ol>
+<li><p>说说你对盒子模型的理解<br>当对一个文档进行布局的时候，浏览器的渲染引擎会根据标准之一的 CSS 基础框盒模型，将所有元素表示为一个个矩形的盒子 这个盒子就是盒模型 一个盒子由四个部分组成：content(实际内容) padding(内边距) border(边框) margin(外边距) 盒子模型可以分为W3C标准盒子模型 IE怪异盒子模型 标准盒子模型，是浏览器默认的盒子模型 width&#x2F;height 只是内容高度，不包含 padding 和 border值 怪异盒子模型 width&#x2F;height 包含了 padding和 border值</p>
+</li>
+<li><p>css选择器有哪些？优先级？哪些属性可以继承？<br>Id选择器 类选择器 标签选择器 后代选择器 子选择器 相邻同胞选择器 群组选择器 伪类选择器 伪元素选择器 属性选择器<br>优先级：内联 &gt; ID选择器 &gt; 类选择器 &gt; 标签选择器<br>继承：文本系列属性 元素可见性 表格布局属性 列表属性 引用 光标属性font组合字体 text-indent text-align line-height visibility caption-side </p>
+</li>
+<li><p>元素水平垂直居中的方法有哪些？如果元素不定宽高呢？<br>定位+margin:auto：父级设置相对定位 子级绝对定位 如果子级没有宽高就会被拉开父级一样的宽高 如果设置了宽高 给他一个margin:auto就可以了<br>定位+margin:负值：设置父元素为相对定位， 子元素移动自身50%实现水平垂直居中<br>定位+transform：是margin负值的替代方案，并不需要知道自身元素的宽高<br>Table布局：设置父元素为display:table-cell，子元素设置 display: inline-block。利用vertical和text-align可以让所有的行内块级元素水平垂直居中<br>Flex弹性布局<br>Gird网格布局<br>不定宽高：定位+margin:auto 定位+transform</p>
+</li>
+<li><p>怎么理解回流跟重绘？什么场景下会触发？<br>回流：布局引擎会根据各种样式计算每个盒子在页面上的大小与位置<br>重绘：当计算好盒模型的位置、大小及其他属性后，浏览器根据每个盒子特性进行绘制<br>回流场景：添加或删除可见的DOM元素 元素的位置发生变化 元素的尺寸发生变化 页面一开始渲染的时候 浏览器的窗口尺寸变化<br>重绘场景：触发回流一定会触发重绘 颜色的修改 文本方向的修改 阴影的修改</p>
+</li>
+<li><p>什么是响应式设计？响应式设计的基本原理是什么？如何做？<br>响应式网站设计是一种网络页面设计布局，页面的设计与开发应当根据用户行为以及设备环境进行相应的响应和调整<br>基本原理是通过媒体查询检测不同的设备屏幕尺寸做处理，为了处理移动端，页面头部必须有meta声明viewport<br>媒体查询、百分比、vw&#x2F;vh、rem</p>
+</li>
+<li><p>如果要做优化，CSS提高性能的方法有哪些？<br>内联首屏关键CSS、异步加载CSS、资源压缩、合理使用选择器、减少使用昂贵的属性、不使用@import</p>
+</li>
+<li><p>对前端工程师这个职位是怎么样理解的？它的前景会怎么样<br>……</p>
+</li>
+<li><p>说说JavaScript中的数据类型？存储上的差别？<br>分为基本类型和复杂类型<br>基本类型包含Number、String、Boolean、Undefined、null、symbol<br>复杂类型包含Object、Array、Function<br>声明变量时不同的内存地址分配：简单类型的值存放在栈中 存放的是对应的值、引用类型对应的值存储在堆中 在栈中存放的是指向堆内存的地址<br>不同的类型数据导致赋值变量时的不同：简单类型赋值，是生成相同的值，两个对象对应不同的地址、复杂类型赋值，是将保存对象的内存地址赋值给另一个变量</p>
+</li>
+<li><p>typeof 与 instanceof 区别</p>
+</li>
+</ol>
+<p>typeof 是判断数据类型的一个方法 操作符返回一个字符串，表示未经计算的操作数的类型<br>instanceof 运算符用于检测构造函数的 prototype 属性是否出现在某个实例对象的原型链上<br>区别：typeof会返回一个变量的基本类型，instanceof返回的是一个布尔值、instanceof可以准确地判断复杂引用数据类型，但是不能正确判断基础数据类型、而typeof 也存在弊端，它虽然可以判断基础数据类型（null 除外），但是引用数据类型中，除了function 类型以外，其他的也无法判断显示的都是object<br>10. 说说你对闭包的理解？闭包使用场景<br>一个函数和对其周围状态的引用捆绑在一起或者说函数被引用包围，这样的组合就是闭包 闭包让你可以在一个内层函数中访问到其外层函数的作用域<br>使用场景：创建私有变量、延长变量的生命周期</p>
+<ol start="11">
+<li><p>bind、call、apply 区别？如何实现一个bind?<br>三者都可以改变函数的this对象指向<br>三者第一个参数都是this要指向的对象，如果没有这个参数或参数为undefined或null，则默认指向全局window<br>三者都可以传参，但是apply是数组，而call是参数列表，且apply和call是一次性传入参数，而bind可以分为多次传入<br>Bind是返回绑定this之后的函数，apply、call 则是立即执行<br> bind的三个特点 (1)保存this,返回新的函数 (2)可以传入参数 (3)一个绑定函数也可以使用new操作符创建对象</p>
+</li>
+<li><p>说说你对事件循环的理解<br>同步任务进入主线程，即主执行栈，异步任务进入任务队列，主线程内的任务执行完毕为空，会去任务队列读取对应的任务，推入主线程执行 上述过程的不断重复就事件循环<br>事件循环分为宏任务和微任务<br>微任务：一个需要异步执行的函数，执行时机是在主函数执行结束之后、当前宏任务结束之前 常见的有：Promise.then MutationObserver process.nextTick<br>常见宏任务有：script setTimeout&#x2F;setInterval UI rendering postMessage MessageChannel setImmediate I&#x2F;O</p>
+</li>
+<li><p>DOM常见的操作有哪些<br>创建节点：createElement、createTextNode、createDocumentFragment、createAttribute<br>查询节点：querySelector、querySelectorAll<br>更新节点：innerHTML、innerText、textContent、style<br>添加节点：innerHTML、appendChild、insertBefore、setAttribute<br>删除节点：removeChild</p>
+</li>
+<li><p>说说你对BOM的理解，常见的BOM对象你了解哪些？<br>BOM是浏览器对象模型，提供了独立于内容与浏览器窗口进行交互的对象 其作用就是跟浏览器做一些交互效果,比如如何进行页面的后退，前进，刷新，浏览器的窗口发生变化，滚动条的滚动，以及获取客户的一些信息 Bom的核心对象是window，它表示浏览器的一个实例<br>常见的BOM对象：window、location、navigator、screen、history</p>
+</li>
+<li><p>Javascript本地存储的方式有哪些？区别及应用场景？<br>Cookie、sessionStorage、localStorage、indexedDB<br>区别：<br>存储大小：cookie数据大小不能超过4k，sessionStorage和localStorage虽然也有存储大小的限制，但比cookie大得多<br>有效时间：localStorage存储持久数据，浏览器关闭后数据不丢失除非主动删除数据； sessionStorage数据在当前浏览器窗口关闭后自动删除；cookie设置的cookie过期时间之前一直有效，即使窗口或浏览器关闭<br>数据与服务器之间的交互方式：cookie的数据会自动的传递到服务器，服务器端也可以写cookie到客户端； sessionStorage和localStorage不会自动把数据发给服务器，仅在本地保存<br>场景：<br>标记用户与跟踪用户行为的情况，推荐使用cookie<br>适合长期保存在本地的数据（令牌），推荐使用localStorage<br>敏感账号一次性登录，推荐使用sessionStorage<br>存储大量数据的情况、在线文档（富文本编辑器）保存编辑历史的情况，推荐使用indexedDB</p>
+</li>
+<li><p>什么是防抖和节流？有什么区别？如何实现？<br>防抖：n 秒后在执行该事件，若在 n 秒内被重复触发，则重新计时<br>节流：n 秒内只运行一次，若在 n 秒内重复触发，只有一次生效<br>区别：<br>函数防抖在一段连续操作结束后，处理回调，利用clearTimeout和 setTimeout实现。函数节流，在一段连续操作中，每一段时间只执行一次，频率较高的事件中使用来提高性能<br>函数防抖关注一定时间连续触发的事件，只在最后执行一次，而函数节流一段时间内只执行一次<br>实现：<br>节流：使用时间戳写法，事件会立即执行，停止触发后没有办法再次执行；使用定时器写法，delay毫秒后第一次执行，第二次事件停止触发后依然会再一次执行；也可以将时间戳写法的特性与定时器写法的特性相结合，实现一个更加精确的节流<br>防抖：使用一个变量来判断你的每次操作时候是否已经触发过定时器了，如果触发过了就将原来触发但还没到n秒的定时器清除，接着重新来个n秒的定时器；如果没触发过说明n秒内没有进行操作，新建一个n秒的定时器就行</p>
+</li>
+<li><p>如何通过JS判断一个数组<br>通过instanceof判断：instanceof运算符用于检验构造函数的prototype属性是否出现在对象的原型链中的任何位置，返回一个布尔值<br>通过constructor判断：实例的构造函数属性constructor指向构造函数，通过constructor属性可以判断是否为一个数组<br>通过Object.prototype.toString.call()判断：Object.prototype.toString.call()可以获取到对象的不同类型<br>通过Array.isArray()判断：Array.isArray()用于确定传递的值是否是一个数组，返回一个布尔值</p>
+</li>
+<li><p>说说你对作用域链的理解<br>作用域 即变量和函数生效的区域或集合 换句话说 作用域决定了代码区块中变量和其他资源的可见性 作用域一般分为全局作用域、函数作用域、块级作用域<br>作用域链：当在Javascript中使用一个变量的时候，首先Javascript引擎会尝试在当前作用域下去寻找该变量，如果没找到，再到它的上层作用域寻找，以此类推直到找到该变量或是已经到了全局作用域 这就是作用域链</p>
+</li>
+<li><p>JavaScript原型，原型链 ? 有什么特点？<br>原型：JS中每个函数都存在有一个原型对象属性prototype。并且所有函数的默认原型都是Object的实例<br>原型链：每个继承父函数的子函数的对象都包含一个内部属性_proto_。该属性包含一个指针，指向父函数的prototype。若父函数的原型对象的_proto_属性为再上一层函数。在此过程中就形成了原型链。<br>特点：原型链实现了继承。原型链存在两个问题：包含引用类型值的原型属性会被所有实例共享；在创建子类型时，无法向超类型的构造函数中传递参数</p>
+</li>
+<li><p>请解释什么是事件代理<br>事件代理，通俗地来讲，就是把一个元素响应事件（click、keydown……）的函数委托到另一个元素 事件流的都会经过三个阶段： 捕获阶段 -&gt; 目标阶段 -&gt; 冒泡阶段，而事件委托就是在冒泡阶段完成</p>
+</li>
+<li><p>谈谈This对象的理解<br>this 关键字是函数运行时自动生成的一个内部对象，只能在函数内部使用，总指向调用它的对象 在绝大多数情况下，函数的调用方式决定了 this 的值 同时，this在函数执行过程中，this一旦被确定了，就不可以再更改<br>根据不同的场合 this有不同的值：默认绑定（严格模式下，不能将全局对象用于默认绑定，this会绑定到undefined，只有函数运行在非严格模式下，默认绑定才能绑定到全局对象） 隐式绑定（函数可以作为某个对象的方法调用，这时this就指这个上级对象） new绑定（通过构建函数new关键字生成一个实例对象，此时this指向这个实例对象）</p>
+</li>
+<li><p>new操作符具体干了什么<br>在JavaScript中，new操作符用于创建一个给定构造函数的实例对象<br>new 通过构造函数创建出来的实例可以访问到构造函数中的属性<br>new 通过构造函数创建出来的实例可以访问到构造函数原型链中的属性（即实例与构造函数通过原型链连接了起来）<br>创建一个新的对象<br>将构建函数中的this绑定到新建的对象上<br>根据构建函数返回类型作判断，如果是原始值则被忽略，如果是返回对象，需要正常处理</p>
+</li>
+<li><p>null，undefined 的区别<br>Null是空值 undefined是未定义的值<br>数据类型不同null的类型是object    undefined的类型是undefined<br>null和undefined两者相等，但是当两者做全等比较时，两者又不等<br>转化成数字 null是0 undefined是NaN<br>undefined是表示变量声明过但并未赋过值，它是所有未赋值变量默认值<br>null表示一个变量将来可能指向一个对象，一般用于主动释放指向对象的引用</p>
+</li>
+<li><p>javascript 代码中的”use strict”;是什么意思<br>“use strict”;是一个字符串字面量，用来指定代码运行于严格模式下 严格模式下你不能使用未声明的变量 “严格模式”体现了Javascript更合理、更安全、更严谨的发展方向 另一方面，同样的代码，在”严格模式”中，可能会有不一样的运行结果；一些在”正常模式”下可以运行的语句，在”严格模式”下将不能运行</p>
+</li>
+<li><p>同步和异步的区别<br>同步：同步是指一个进程在执行某个请求的时候，如果该请求需要一段时间才能返回信息，那么这个进程会一直等待下去，直到收到返回信息才继续执行下去<br>异步：异步是指进程不需要一直等待下去，而是继续执行下面的操作，不管其他进程的状态，当有信息返回的时候会通知进程进行处理，这样就可以提高执行的效率了<br>如果是ajax去局部请求数据，也不一定都是适合使用异步的，比如应用程序往下执行时以来从服务器请求的数据，那么必须等这个数据返回才行，这时必须使用同步。而发送邮件的时候，采用异步发送就可以了，因为不论花了多长时间，对方能收到就好。总结得来说，就是看需要请求的数据是否是程序继续执行必须依赖的数据</p>
+</li>
+<li><p>谈一谈箭头函数与普通函数的区别<br>外形不同：箭头函数使用箭头定义，普通函数中没有。<br>箭头函数全都是匿名函数：普通函数可以有匿名函数，也可以有具名函数<br>箭头函数不能用于构造函数：普通函数可以用于构造函数，以此创建对象实例。<br>箭头函数中 this 的指向不同：在普通函数中，this 总是指向调用它的对象，如果用作构造函数，它指向创建的对象实例。<br>箭头函数不具有 arguments 对象：每一个普通函数调用后都具有一个arguments 对象，用来存储实际传递的参数。但是箭头函数并没有此对象。<br>其他区别：箭头函数不具有 prototype 原型对象。箭头函数不具有 super。<br>箭头函数不具有 new.target</p>
+</li>
+<li><p>JS 数组和对象的遍历方式，以及几种方式的比较、<br>遍历数组方式：for in循环、for循环、forEach（forEach 无法遍历对象）、map、for of循环（ES6新增方法）<br>遍历对象：for…in…（遍历的是对象的键名）、Object.keys（会返回一个由一个指定对象的自身可枚举属性组成的数组，数组中属性名的排列顺序和使用for…in循环遍历该对象时返回的顺序一致）、Object.getOwnPropertyNames(obj)（返回一个数组，包含对象自身的所有属性（包含不可枚举属性） 结合forEach遍历可以获取key和value）<br>比较：<br>for…in 遍历（当前对象及其原型上的）每一个key,而 for…of遍历（当前对象上的）每一个value;<br>for in 以任意顺序遍历对象的可枚举属性（最好不要用来遍历数组）因此当迭代那些访问次序重要的 arrays 时用整数索引去进行 for 循环 (或者使用 Array.prototype.forEach() 或 for…of 循环)<br>for…of 允许遍历 Arrays（数组）, Strings（字符串）, Maps（映射）, Sets（集合）等可迭代的数据结构等 但不能单独来遍历对象，要结合Object.keys一起使用才行</p>
+</li>
+<li><p>如何解决跨域问题<br>跨域本质是浏览器基于同源策略的一种安全手段<br>同源策略是一种约定，它是浏览器最核心也最基本的安全功能 所谓同源（即指在同一个域）具有以下三个相同点：协议相同（protocol）、主机相同（host）、端口相同（port）反之非同源请求，也就是协议、端口、主机其中一项不相同的时候，这时候就会产生跨域 一定要注意跨域是浏览器的限制<br>解决：JSONP、CORS（是一个系统，它由一系列传输的HTTP头组成，这些HTTP头决定浏览器是否阻止前端 JavaScript 代码获取跨域请求的响应 CORS 实现起来非常方便，只需要增加一些 HTTP 头，让服务器能声明允许的访问来源 只要后端实现了 CORS，就实现了跨域）、Proxy（Proxy也称网络代理，是一种特殊的网络服务，允许一个（一般为客户端）通过这个服务与另一个网络终端（一般为服务器）进行非直接的连接 在vue中使用时 我们可以在vue.config.js文件中新增proxy属性）</p>
+</li>
+<li><p>XML和JSON的区别<br>xml：可扩展标记语言，是一种用于标记电子文件使其具有结构性的标记语言<br>json：(JavaScript Object Notation, JS 对象简谱) 是一种轻量级的数据交换格式<br>区别：<br>它们都是一种数据交换格式<br>xml是重量级的，json是轻量级的<br>xml在传输过程中比较占带宽，json占带宽少，易于压缩<br>xml和json都用在项目交互下，xml多用于做配置文件，json用于数据交互<br>json可用jackson，gson等方法解析，xml可用dom，sax，demo4j等方式解析</p>
+</li>
+<li><p>谈谈你对webpack的看法<br>webpack 是一个用于现代JavaScript应用程序的静态模块打包工具 这里的静态模块指的是开发阶段，可以被 webpack 直接引用的资源 Webpack 最初的目标是实现前端项目的模块化，旨在更高效地管理和维护项目中的每一个资源<br>我们在开发过程中 可能会遇到需要通过模块化的方式来开发、使用一些高级的特性来加快我们的开发效率或者安全性、监听文件的变化来并且反映到浏览器上 提高开发效率等问题 webpack刚好就解决了这些问题</p>
+</li>
+<li><p>webpack的打包原理</p>
+</li>
+<li><p>如何优化webpack打包速度</p>
+</li>
+<li><p>说说webpack中常见的Loader？解决了什么问题？</p>
+</li>
+<li><p>说说webpack中常见的Plugin？解决了什么问题？</p>
+</li>
+<li><p>说说你对promise的了解</p>
+</li>
+<li><p>async函数是什么，有什么作用</p>
+</li>
+<li><p>有使用过vue吗？说说你对vue的理解</p>
+</li>
+<li><p>你对SPA单页面的理解，它的优缺点分别是什么？如何实现SPA应用呢</p>
+</li>
+<li><p>SPA首屏加载速度慢的怎么解决？</p>
+</li>
+<li><p>VUE路由的原理</p>
+</li>
+<li><p>Vue中组件和插件有什么区别？</p>
+</li>
+<li><p>Vue组件之间的通信方式都有哪些</p>
+</li>
+<li><p>你了解vue的diff算法吗？说说看</p>
+</li>
+<li><p>为什么需要 Virtual Dom</p>
+</li>
+<li><p>Vue3.0的设计目标是什么？做了哪些优化</p>
+</li>
+<li><p>Vue3.0 所采用的 Composition Api 与 Vue2.x 使用的 Options Api 有什么不同？</p>
+</li>
+<li><p>说一下Vue数据响应式的原理</p>
+</li>
+<li><p>说说对 React 的理解？有哪些特性？</p>
+</li>
+<li><p>说说 Real DOM 和 Virtual DOM 的区别？优缺点？</p>
+</li>
+<li><p>说说 React 生命周期有哪些不同阶段？每个阶段对应的方法是？</p>
+</li>
+<li><p>说说 React中的setState执行机制</p>
+</li>
+<li><p>说说对React中类组件和函数组件的理解？有什么区别？</p>
+</li>
+<li><p>说说对React Hooks的理解？解决了什么问题？</p>
+</li>
+<li><p>说说你对Redux的理解？其工作原理？</p>
+</li>
+<li><p>说说 React 性能优化的手段有哪些</p>
+</li>
+<li><p>vue、react、angular 区别</p>
+</li>
+<li><p>说说你对 TypeScript 的理解？与 JavaScript 的区别</p>
+</li>
+<li><p>说说你对 TypeScript 中泛型的理解？应用场景？</p>
+</li>
+<li><p>说说你对微信小程序的理解？优缺点？</p>
+</li>
+<li><p>说说你对发布订阅、观察者模式的理解？区别？</p>
+</li>
+<li><p>项目做过哪些性能优化</p>
+</li>
+<li><p>描述浏览器的渲染过程，DOM树和渲染树的区别</p>
+</li>
+<li><p>你认为什么样的前端代码是好的</p>
+</li>
+<li><p>从浏览器地址栏输入url到显示页面的步骤</p>
+</li>
+<li><p>http 请求报文响应报文的格式</p>
+</li>
+<li><p>Token cookie session 区别</p>
+</li>
+<li><p>CORS跨域的原理</p>
+</li>
+<li><p>什么是MVVM</p>
+</li>
+<li><p>说说你对版本管理的理解？常用的版本管理工具有哪些？</p>
+</li>
+<li><p>说说你对Git的理解？</p>
+</li>
+<li><p>说说Git常用的命令有哪些</p>
+</li>
+<li><p>说说 git 发生冲突的场景？如何解决？</p>
+</li>
+</ol>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">Author: </span><span class="post-copyright-info"><a href="http://example.com">YaYa</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">Link: </span><span class="post-copyright-info"><a href="http://example.com/2022/10/26/%E9%9D%A2%E8%AF%95%E9%A2%98%E6%80%BB%E7%BB%93/">http://example.com/2022/10/26/%E9%9D%A2%E8%AF%95%E9%A2%98%E6%80%BB%E7%BB%93/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">Copyright Notice: </span><span class="post-copyright-info">All articles in this blog are licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless stating additionally.</span></div></div><div class="tag_share"><div class="post-meta__tag-list"></div><div class="post_share"><div class="social-share" data-image="/img/head.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="next-post pull-full"><a href="/2022/10/21/%E6%B7%B1%E6%8B%B7%E8%B4%9D%E6%B5%85%E6%8B%B7%E8%B4%9D/"><img class="next-cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">Next Post</div><div class="next_info">深拷贝浅拷贝</div></div></a></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="/img/head.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">YaYa</div><div class="author-info__description"></div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">13</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">0</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">0</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/isyayaya"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>Announcement</span></div><div class="announcement_content">is yaya Blog</div></div><div class="sticky_layout"><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>Recent Post</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2022/10/26/%E9%9D%A2%E8%AF%95%E9%A2%98%E6%80%BB%E7%BB%93/" title="面试题总结">面试题总结</a><time datetime="2022-10-26T11:18:42.000Z" title="Created 2022-10-26 19:18:42">2022-10-26</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2022/10/21/%E6%B7%B1%E6%8B%B7%E8%B4%9D%E6%B5%85%E6%8B%B7%E8%B4%9D/" title="深拷贝浅拷贝">深拷贝浅拷贝</a><time datetime="2022-10-21T08:31:43.000Z" title="Created 2022-10-21 16:31:43">2022-10-21</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2020/10/21/react%E5%9B%BE%E7%89%87%E9%AA%8C%E8%AF%81%E7%A0%81/" title="react生成图片验证码">react生成图片验证码</a><time datetime="2020-10-21T11:20:19.000Z" title="Created 2020-10-21 19:20:19">2020-10-21</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2020/10/20/%E5%A6%82%E4%BD%95%E4%BF%AE%E6%94%B9react%E9%A1%B9%E7%9B%AE%E7%AB%AF%E5%8F%A3%E5%8F%B7/" title="如何修改react项目端口号">如何修改react项目端口号</a><time datetime="2020-10-20T12:32:14.000Z" title="Created 2020-10-20 20:32:14">2020-10-20</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2020/10/20/react-router-dom/" title="react_router_dom V5与V6 的区别">react_router_dom V5与V6 的区别</a><time datetime="2020-10-20T10:14:34.000Z" title="Created 2020-10-20 18:14:34">2020-10-20</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2022 By YaYa</div><div class="framework-info"><span>Framework </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>Theme </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="Read Mode"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="Toggle Between Light And Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="Toggle between single-column and double-column"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="Setting"><i class="fas fa-cog fa-spin"></i></button><button id="go-up" type="button" title="Back To Top"><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.min.js"></script><script>var preloader = {
+  endLoading: () => {
+    document.body.style.overflow = 'auto';
+    document.getElementById('loading-box').classList.add("loaded")
+  },
+  initLoading: () => {
+    document.body.style.overflow = '';
+    document.getElementById('loading-box').classList.remove("loaded")
+
+  }
+}
+window.addEventListener('load',preloader.endLoading())</script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
