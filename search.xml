@@ -306,6 +306,84 @@ visited 表示元素被点击后的状态格式：
 ]]></content>
   </entry>
   <entry>
+    <title>react生成图片验证码</title>
+    <url>/2020/10/21/react%E5%9B%BE%E7%89%87%E9%AA%8C%E8%AF%81%E7%A0%81/</url>
+    <content><![CDATA[<p>​</p>
+<p>前端开发过程中在与后端对接之前需要自己先造出一些数据，比如：mock等<br>图片验证码同样也需要前端自己先生成。</p>
+<p>使用插件<br>react-captcha-code 这是一个基于React(依赖react, react-dom) 和 Canvas 的小插件</p>
+<p>样式</p>
+<p><img src="https://img-blog.csdnimg.cn/ff8d8879e9204806ad54d01925d9f938.png"></p>
+<p>安装</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">npm install react-captcha-code --save</span><br></pre></td></tr></table></figure>
+<p>属性和方法</p>
+<table>
+<thead>
+<tr>
+<th>名称</th>
+<th>类型</th>
+<th>必填</th>
+<th>默认值</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>height</td>
+<td>number</td>
+<td>否</td>
+<td>40</td>
+<td>图片高度</td>
+</tr>
+<tr>
+<td>width</td>
+<td>number</td>
+<td>否</td>
+<td>100</td>
+<td>图片宽度</td>
+</tr>
+<tr>
+<td>bgColor</td>
+<td>string</td>
+<td>否</td>
+<td>#DFF0D8</td>
+<td>背景颜色</td>
+</tr>
+<tr>
+<td>charNum</td>
+<td>number</td>
+<td>否</td>
+<td>4</td>
+<td>验证码字符个数</td>
+</tr>
+<tr>
+<td>fontSize</td>
+<td>number</td>
+<td>否</td>
+<td>25</td>
+<td>字体大小</td>
+</tr>
+<tr>
+<td>onChange</td>
+<td>function</td>
+<td></td>
+<td>是</td>
+<td>点击验证码的回调，初始加载也会调用，返回验证码值</td>
+</tr>
+<tr>
+<td>className</td>
+<td>string</td>
+<td>否</td>
+<td></td>
+<td>样式名</td>
+</tr>
+</tbody></table>
+<p>示例</p>
+<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="title class_">React</span>, &#123; useCallback &#125; <span class="keyword">from</span> <span class="string">&#x27;react&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> <span class="title class_">Captcha</span> <span class="keyword">from</span> <span class="string">&#x27;react-captcha-code&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> &#123; <span class="attr">title</span>: <span class="string">&#x27;Basic&#x27;</span> &#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> <span class="title function_">Basic</span> = (<span class="params"></span>) =&gt; &#123;</span><br><span class="line">  <span class="keyword">const</span> handleClick = <span class="title function_">useCallback</span>(<span class="function">(<span class="params">captcha</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;captcha:&#x27;</span>, captcha);</span><br><span class="line">  &#125;, []);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> <span class="language-xml"><span class="tag">&lt;<span class="name">Captcha</span> <span class="attr">charNum</span>=<span class="string">&#123;4&#125;</span> <span class="attr">onChange</span>=<span class="string">&#123;handleClick&#125;</span> /&gt;</span></span>;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="title class_">Basic</span>;</span><br></pre></td></tr></table></figure>
+
+<p><a href="https://www.cnblogs.com/xguoz/p/13163867.html">原文链接:我的故事没编好 - 博客园 </a></p>
+<p>​</p>
+]]></content>
+  </entry>
+  <entry>
     <title>react_router_dom V5与V6 的区别</title>
     <url>/2020/10/20/react-router-dom/</url>
     <content><![CDATA[<h2 id="1-v6-中-Switch-名称变为-Routes"><a href="#1-v6-中-Switch-名称变为-Routes" class="headerlink" title="1. v6 中 Switch 名称变为 Routes"></a>1. v6 中 Switch 名称变为 Routes</h2><p>代码如下：</p>
@@ -432,84 +510,6 @@ visited 表示元素被点击后的状态格式：
 <h2 id="12-useRoutes-声明式的路由配置方式"><a href="#12-useRoutes-声明式的路由配置方式" class="headerlink" title="12. useRoutes 声明式的路由配置方式"></a>12. useRoutes 声明式的路由配置方式</h2><p>声明式路由中，不能写index, 可以让path: “” , 来实现显示默认组件;</p>
 <p>useRoutes函数，会返回已经渲染好的路由元素</p>
 <figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> element = <span class="title function_">useRoutes</span>([</span><br><span class="line">&#123;</span><br><span class="line"></span><br><span class="line">  <span class="attr">path</span>: <span class="string">&quot;/&quot;</span>,</span><br><span class="line"></span><br><span class="line">  <span class="attr">element</span>: <span class="language-xml"><span class="tag">&lt;<span class="name">Dashboard</span> /&gt;</span></span>,</span><br><span class="line"></span><br><span class="line">  <span class="attr">children</span>: [</span><br><span class="line"></span><br><span class="line">      &#123;</span><br><span class="line"></span><br><span class="line">        <span class="attr">path</span>: <span class="string">&quot;&quot;</span>,</span><br><span class="line"></span><br><span class="line">        <span class="attr">element</span>: <span class="language-xml"><span class="tag">&lt;<span class="name">DashboardMessages</span> /&gt;</span></span></span><br><span class="line"></span><br><span class="line">      &#125;,</span><br><span class="line"></span><br><span class="line">      &#123;</span><br><span class="line"></span><br><span class="line">        <span class="attr">path</span>: <span class="string">&quot;/messages&quot;</span>,</span><br><span class="line"></span><br><span class="line">        <span class="attr">element</span>: <span class="language-xml"><span class="tag">&lt;<span class="name">DashboardMessages</span> /&gt;</span></span></span><br><span class="line"></span><br><span class="line">      &#125;,</span><br><span class="line"></span><br><span class="line">      &#123; <span class="attr">path</span>: <span class="string">&quot;/tasks&quot;</span>, <span class="attr">element</span>: <span class="language-xml"><span class="tag">&lt;<span class="name">DashboardTasks</span> /&gt;</span></span> &#125;</span><br><span class="line"></span><br><span class="line">  &#125;,</span><br><span class="line"></span><br><span class="line">  &#123; <span class="attr">path</span>: <span class="string">&quot;/team&quot;</span>, <span class="attr">element</span>: <span class="language-xml"><span class="tag">&lt;<span class="name">AboutPage</span> /&gt;</span></span> &#125;</span><br><span class="line"></span><br><span class="line">]);</span><br></pre></td></tr></table></figure>]]></content>
-  </entry>
-  <entry>
-    <title>react生成图片验证码</title>
-    <url>/2020/10/21/react%E5%9B%BE%E7%89%87%E9%AA%8C%E8%AF%81%E7%A0%81/</url>
-    <content><![CDATA[<p>​</p>
-<p>前端开发过程中在与后端对接之前需要自己先造出一些数据，比如：mock等<br>图片验证码同样也需要前端自己先生成。</p>
-<p>使用插件<br>react-captcha-code 这是一个基于React(依赖react, react-dom) 和 Canvas 的小插件</p>
-<p>样式</p>
-<p><img src="https://img-blog.csdnimg.cn/ff8d8879e9204806ad54d01925d9f938.png"></p>
-<p>安装</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">npm install react-captcha-code --save</span><br></pre></td></tr></table></figure>
-<p>属性和方法</p>
-<table>
-<thead>
-<tr>
-<th>名称</th>
-<th>类型</th>
-<th>必填</th>
-<th>默认值</th>
-<th>描述</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>height</td>
-<td>number</td>
-<td>否</td>
-<td>40</td>
-<td>图片高度</td>
-</tr>
-<tr>
-<td>width</td>
-<td>number</td>
-<td>否</td>
-<td>100</td>
-<td>图片宽度</td>
-</tr>
-<tr>
-<td>bgColor</td>
-<td>string</td>
-<td>否</td>
-<td>#DFF0D8</td>
-<td>背景颜色</td>
-</tr>
-<tr>
-<td>charNum</td>
-<td>number</td>
-<td>否</td>
-<td>4</td>
-<td>验证码字符个数</td>
-</tr>
-<tr>
-<td>fontSize</td>
-<td>number</td>
-<td>否</td>
-<td>25</td>
-<td>字体大小</td>
-</tr>
-<tr>
-<td>onChange</td>
-<td>function</td>
-<td></td>
-<td>是</td>
-<td>点击验证码的回调，初始加载也会调用，返回验证码值</td>
-</tr>
-<tr>
-<td>className</td>
-<td>string</td>
-<td>否</td>
-<td></td>
-<td>样式名</td>
-</tr>
-</tbody></table>
-<p>示例</p>
-<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="title class_">React</span>, &#123; useCallback &#125; <span class="keyword">from</span> <span class="string">&#x27;react&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> <span class="title class_">Captcha</span> <span class="keyword">from</span> <span class="string">&#x27;react-captcha-code&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> &#123; <span class="attr">title</span>: <span class="string">&#x27;Basic&#x27;</span> &#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> <span class="title function_">Basic</span> = (<span class="params"></span>) =&gt; &#123;</span><br><span class="line">  <span class="keyword">const</span> handleClick = <span class="title function_">useCallback</span>(<span class="function">(<span class="params">captcha</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;captcha:&#x27;</span>, captcha);</span><br><span class="line">  &#125;, []);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> <span class="language-xml"><span class="tag">&lt;<span class="name">Captcha</span> <span class="attr">charNum</span>=<span class="string">&#123;4&#125;</span> <span class="attr">onChange</span>=<span class="string">&#123;handleClick&#125;</span> /&gt;</span></span>;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="title class_">Basic</span>;</span><br></pre></td></tr></table></figure>
-
-<p><a href="https://www.cnblogs.com/xguoz/p/13163867.html">原文链接:我的故事没编好 - 博客园 </a></p>
-<p>​</p>
-]]></content>
   </entry>
   <entry>
     <title>v2 与v3 的区别</title>
@@ -1044,5 +1044,10 @@ TypeScript 中引入了模块的概念，可以把声明、数据、函数和类
       <tags>
         <tag>html</tag>
       </tags>
+  </entry>
+  <entry>
+    <title>Angular 框架使用</title>
+    <url>/2017/09/26/Angular%E6%A1%86%E6%9E%B6/</url>
+    <content><![CDATA[<h1 id="Angular-框架"><a href="#Angular-框架" class="headerlink" title="Angular 框架"></a>Angular 框架</h1>]]></content>
   </entry>
 </search>
