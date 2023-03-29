@@ -1,47 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>css提升性能的方法</title>
-    <url>/2019/11/24/css%E4%BC%98%E5%8C%96/</url>
-    <content><![CDATA[<h1 id="一、前言"><a href="#一、前言" class="headerlink" title="一、前言"></a>一、前言</h1><p>为了展示多彩多样的页面效果，我们的每一个网页都离不开 css。大多数人认为，css 就是完成页面布局的，只要东西出来了，细节优化什么的不用在意。<br>这种想法式不正确的，利用好 css 优化，即使我们的不修改我们的 js 代码也可以使我们的代码性能有很大的提升</p>
-<h1 id="二、实现方式"><a href="#二、实现方式" class="headerlink" title="二、实现方式"></a>二、实现方式</h1><h2 id="1-提高加载的性能"><a href="#1-提高加载的性能" class="headerlink" title="1. 提高加载的性能"></a>1. 提高加载的性能</h2><blockquote>
-<p>想要提高加载的性能主要式从减少文件的体积、减少阻塞加载、提高并发方面入手</p>
-</blockquote>
-<ol>
-<li>我们可以 使用的一些工具像 <strong>webpack</strong> 、<strong>gulp&#x2F;grunt</strong>，<strong>rollup</strong> 等模块化的工具 来 <strong><em>压缩 css</em></strong> 代码，使我们的文件变小，大大降低了浏览器的加载时间。</li>
-<li>不要使用 <strong>@import</strong> ,css 样式文件有两种引入方式 一种是 link 元素 ，还有一种就是@import<br>@import 他会影响浏览器的并行下载 ，使我们的页面在加载的时候增加额外的延迟，增添了额外的往返耗时<br>而且多个@import 可能会导致下载顺序紊乱 他会先下载本文件 下载、解析并执行完才开始下载 import 中的文件</li>
-</ol>
-<h2 id="1-内联首屏关键-CSS"><a href="#1-内联首屏关键-CSS" class="headerlink" title="1. 内联首屏关键 CSS"></a>1. 内联首屏关键 CSS</h2><p>关键的 CSS 是一种技术，它提取并内嵌 CSS 以获得页面以上的内容。在 HTML 文档的 <head>中内联提取的样式，无需额外请求获取这些样式，并加快渲染速度。<br>外部引用 css 代码，在解析 html 结构过程中遇到外部 css 文件，才会开始下载 css 代码，再渲染，内联使渲染时间提前<br><strong>注意：</strong> 但是较大的 css 代码并不合适内联（初始拥塞窗口、没有缓存），而其余代码则采取外部引用方式</p>
-<blockquote>
-<p>确定关键的 CSS 并不完全准确，因为你需要对页面滚动之前在页面加载时看到的所有内容的位置进行假设（不同设备屏幕尺寸的位置有所不同）。这对于高度动态的网站来说是很困难的。即使不精确，它仍然可以带来性能的提升，我们可以通过 Critical、CriticalCSS 和 Penthouse 等工具自动化。</p>
-</blockquote>
-<h2 id="2-异步加载-CSS"><a href="#2-异步加载-CSS" class="headerlink" title="2. 异步加载 CSS"></a>2. 异步加载 CSS</h2><p>在 CSS 文件请求、下载、解析完成之前，CSS 会阻塞渲染，浏览器将不会渲染任何已处理的内容<br>前面加载内联代码后，后面的外部引用 css 则没必要阻塞浏览器渲染。我们就可以通过异步加载的方式提高速度</p>
-<ol>
-<li><p>用 js 将 link 标签插到 head 标签最后</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 创建link标签</span></span><br><span class="line"><span class="keyword">const</span> myCSS = <span class="variable language_">document</span>.<span class="title function_">createElement</span>(<span class="string">&quot;link&quot;</span>);</span><br><span class="line">myCSS.<span class="property">rel</span> = <span class="string">&quot;stylesheet&quot;</span>;</span><br><span class="line">myCSS.<span class="property">href</span> = <span class="string">&quot;mystyles.css&quot;</span>;</span><br><span class="line"><span class="comment">// 插入到header的最后位置</span></span><br><span class="line"><span class="variable language_">document</span>.<span class="property">head</span>.<span class="title function_">insertBefore</span>(</span><br><span class="line">  myCSS,</span><br><span class="line">  <span class="variable language_">document</span>.<span class="property">head</span>.<span class="property">childNodes</span>[<span class="variable language_">document</span>.<span class="property">head</span>.<span class="property">childNodes</span>.<span class="property">length</span> - <span class="number">1</span>].<span class="property">nextSibling</span></span><br><span class="line">);</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>设置 link 标签 media 属性为 noexis，浏览器会认为当前样式表不适用当前类型，会在不阻塞页面渲染的情况下再进行下载。加载完成后，将 media 的值设为 screen 或 all，从而让浏览器开始解析 CSS</p>
-<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">link</span></span></span><br><span class="line"><span class="tag">  <span class="attr">rel</span>=<span class="string">&quot;stylesheet&quot;</span></span></span><br><span class="line"><span class="tag">  <span class="attr">href</span>=<span class="string">&quot;mystyles.css&quot;</span></span></span><br><span class="line"><span class="tag">  <span class="attr">media</span>=<span class="string">&quot;noexist&quot;</span></span></span><br><span class="line"><span class="tag">  <span class="attr">onload</span>=<span class="string">&quot;this.media=&#x27;all&#x27;&quot;</span></span></span><br><span class="line"><span class="tag">/&gt;</span></span><br></pre></td></tr></table></figure>
-</li>
-<li><p>通过 rel 属性将 link 元素标记为 alternate 可选样式表，也能实现浏览器异步加载。同样别忘了加载完成之后，将 rel 设回 stylesheet</p>
-<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">link</span></span></span><br><span class="line"><span class="tag">  <span class="attr">rel</span>=<span class="string">&quot;alternate stylesheet&quot;</span></span></span><br><span class="line"><span class="tag">  <span class="attr">href</span>=<span class="string">&quot;mystyles.css&quot;</span></span></span><br><span class="line"><span class="tag">  <span class="attr">onload</span>=<span class="string">&quot;this.rel=&#x27;stylesheet&#x27;&quot;</span></span></span><br><span class="line"><span class="tag">/&gt;</span></span><br></pre></td></tr></table></figure></li>
-</ol>
-<h2 id="3-合理使用选择器"><a href="#3-合理使用选择器" class="headerlink" title="3. 合理使用选择器"></a>3. 合理使用选择器</h2><p>css 匹配的规则是从右往左开始匹配，例如#markdown .content h3 匹配规则如下：</p>
-<ol>
-<li>先找到 h3 标签元素</li>
-<li>然后去除祖先不是.content 的元素</li>
-<li>最后去除祖先不是#markdown 的元素</li>
-</ol>
-<p>如果嵌套的层级更多，页面中的元素更多，那么匹配所要花费的时间代价自然更高</p>
-<p>所以我们在编写选择器的时候，可以遵循以下规则：</p>
-<blockquote>
-<p>不要嵌套使用过多复杂选择器，最好不要三层以上<br>使用 id 选择器就没必要再进行嵌套<br>通配符和属性选择器效率最低，避免使用</p>
-</blockquote>
-<h2 id="4-减少使用昂贵的属性"><a href="#4-减少使用昂贵的属性" class="headerlink" title="4. 减少使用昂贵的属性"></a>4. 减少使用昂贵的属性</h2><p>在页面发生重绘的时候，昂贵属性如 box-shadow&#x2F;border-radius&#x2F;filter&#x2F;透明度&#x2F;:nth-child 等，会降低浏览器的渲染性能</p>
-<h1 id="三、总结"><a href="#三、总结" class="headerlink" title="三、总结"></a>三、总结</h1><p>css 实现性能的方式可以从选择器嵌套、属性特性、减少 http 这三面考虑，同时还要注意 css 代码的加载顺序</p>
-]]></content>
-  </entry>
-  <entry>
     <title>css选择器</title>
     <url>/2017/09/26/css%E9%80%89%E6%8B%A9%E5%99%A8/</url>
     <content><![CDATA[<h1 id="1-css选择器"><a href="#1-css选择器" class="headerlink" title="1.css选择器"></a>1.css选择器</h1><p>在 CSS 中,选择器是一种模式,用于选择需要添加样式的元素。<br>当我们需要使用css对HTML页面中的元素实现一对一，一对多或者多对一的控制，这就需要用到CSS选择器。HTML页面中的元素的样式就是通过CSS选择器进行控制的。</p>
@@ -91,6 +50,52 @@ visited 表示元素被点击后的状态格式：
 ]]></content>
   </entry>
   <entry>
+    <title>css提升性能的方法</title>
+    <url>/2019/11/24/css%E4%BC%98%E5%8C%96/</url>
+    <content><![CDATA[<h1 id="一、前言"><a href="#一、前言" class="headerlink" title="一、前言"></a>一、前言</h1><p>为了展示多彩多样的页面效果，我们的每一个网页都离不开 css。大多数人认为，css 就是完成页面布局的，只要东西出来了，细节优化什么的不用在意。<br>这种想法式不正确的，利用好 css 优化，即使我们的不修改我们的 js 代码也可以使我们的代码性能有很大的提升</p>
+<h1 id="二、实现方式"><a href="#二、实现方式" class="headerlink" title="二、实现方式"></a>二、实现方式</h1><h2 id="1-提高加载的性能"><a href="#1-提高加载的性能" class="headerlink" title="1. 提高加载的性能"></a>1. 提高加载的性能</h2><blockquote>
+<p>想要提高加载的性能主要式从减少文件的体积、减少阻塞加载、提高并发方面入手</p>
+</blockquote>
+<ol>
+<li>我们可以 使用的一些工具像 <strong>webpack</strong> 、<strong>gulp&#x2F;grunt</strong>，<strong>rollup</strong> 等模块化的工具 来 <strong><em>压缩 css</em></strong> 代码，使我们的文件变小，大大降低了浏览器的加载时间。</li>
+<li>不要使用 <strong>@import</strong> ,css 样式文件有两种引入方式 一种是 link 元素 ，还有一种就是@import<br>@import 他会影响浏览器的并行下载 ，使我们的页面在加载的时候增加额外的延迟，增添了额外的往返耗时<br>而且多个@import 可能会导致下载顺序紊乱 他会先下载本文件 下载、解析并执行完才开始下载 import 中的文件</li>
+</ol>
+<h2 id="1-内联首屏关键-CSS"><a href="#1-内联首屏关键-CSS" class="headerlink" title="1. 内联首屏关键 CSS"></a>1. 内联首屏关键 CSS</h2><p>关键的 CSS 是一种技术，它提取并内嵌 CSS 以获得页面以上的内容。在 HTML 文档的 <head>中内联提取的样式，无需额外请求获取这些样式，并加快渲染速度。<br>外部引用 css 代码，在解析 html 结构过程中遇到外部 css 文件，才会开始下载 css 代码，再渲染，内联使渲染时间提前<br><strong>注意：</strong> 但是较大的 css 代码并不合适内联（初始拥塞窗口、没有缓存），而其余代码则采取外部引用方式</head></p>
+<blockquote>
+<p>确定关键的 CSS 并不完全准确，因为你需要对页面滚动之前在页面加载时看到的所有内容的位置进行假设（不同设备屏幕尺寸的位置有所不同）。这对于高度动态的网站来说是很困难的。即使不精确，它仍然可以带来性能的提升，我们可以通过 Critical、CriticalCSS 和 Penthouse 等工具自动化。</p>
+</blockquote>
+<h2 id="2-异步加载-CSS"><a href="#2-异步加载-CSS" class="headerlink" title="2. 异步加载 CSS"></a>2. 异步加载 CSS</h2><p>在 CSS 文件请求、下载、解析完成之前，CSS 会阻塞渲染，浏览器将不会渲染任何已处理的内容<br>前面加载内联代码后，后面的外部引用 css 则没必要阻塞浏览器渲染。我们就可以通过异步加载的方式提高速度</p>
+<ol>
+<li><p>用 js 将 link 标签插到 head 标签最后</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 创建link标签</span></span><br><span class="line"><span class="keyword">const</span> myCSS = <span class="variable language_">document</span>.<span class="title function_">createElement</span>(<span class="string">&quot;link&quot;</span>);</span><br><span class="line">myCSS.<span class="property">rel</span> = <span class="string">&quot;stylesheet&quot;</span>;</span><br><span class="line">myCSS.<span class="property">href</span> = <span class="string">&quot;mystyles.css&quot;</span>;</span><br><span class="line"><span class="comment">// 插入到header的最后位置</span></span><br><span class="line"><span class="variable language_">document</span>.<span class="property">head</span>.<span class="title function_">insertBefore</span>(</span><br><span class="line">  myCSS,</span><br><span class="line">  <span class="variable language_">document</span>.<span class="property">head</span>.<span class="property">childNodes</span>[<span class="variable language_">document</span>.<span class="property">head</span>.<span class="property">childNodes</span>.<span class="property">length</span> - <span class="number">1</span>].<span class="property">nextSibling</span></span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>设置 link 标签 media 属性为 noexis，浏览器会认为当前样式表不适用当前类型，会在不阻塞页面渲染的情况下再进行下载。加载完成后，将 media 的值设为 screen 或 all，从而让浏览器开始解析 CSS</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">link</span></span></span><br><span class="line"><span class="tag">  <span class="attr">rel</span>=<span class="string">&quot;stylesheet&quot;</span></span></span><br><span class="line"><span class="tag">  <span class="attr">href</span>=<span class="string">&quot;mystyles.css&quot;</span></span></span><br><span class="line"><span class="tag">  <span class="attr">media</span>=<span class="string">&quot;noexist&quot;</span></span></span><br><span class="line"><span class="tag">  <span class="attr">onload</span>=<span class="string">&quot;this.media=&#x27;all&#x27;&quot;</span></span></span><br><span class="line"><span class="tag">/&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>通过 rel 属性将 link 元素标记为 alternate 可选样式表，也能实现浏览器异步加载。同样别忘了加载完成之后，将 rel 设回 stylesheet</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">link</span></span></span><br><span class="line"><span class="tag">  <span class="attr">rel</span>=<span class="string">&quot;alternate stylesheet&quot;</span></span></span><br><span class="line"><span class="tag">  <span class="attr">href</span>=<span class="string">&quot;mystyles.css&quot;</span></span></span><br><span class="line"><span class="tag">  <span class="attr">onload</span>=<span class="string">&quot;this.rel=&#x27;stylesheet&#x27;&quot;</span></span></span><br><span class="line"><span class="tag">/&gt;</span></span><br></pre></td></tr></table></figure></li>
+</ol>
+<h2 id="3-合理使用选择器"><a href="#3-合理使用选择器" class="headerlink" title="3. 合理使用选择器"></a>3. 合理使用选择器</h2><p>css 匹配的规则是从右往左开始匹配，例如#markdown .content h3 匹配规则如下：</p>
+<ol>
+<li>先找到 h3 标签元素</li>
+<li>然后去除祖先不是.content 的元素</li>
+<li>最后去除祖先不是#markdown 的元素</li>
+</ol>
+<p>如果嵌套的层级更多，页面中的元素更多，那么匹配所要花费的时间代价自然更高</p>
+<p>所以我们在编写选择器的时候，可以遵循以下规则：</p>
+<blockquote>
+<p>不要嵌套使用过多复杂选择器，最好不要三层以上<br>使用 id 选择器就没必要再进行嵌套<br>通配符和属性选择器效率最低，避免使用</p>
+</blockquote>
+<h2 id="4-减少使用昂贵的属性"><a href="#4-减少使用昂贵的属性" class="headerlink" title="4. 减少使用昂贵的属性"></a>4. 减少使用昂贵的属性</h2><p>在页面发生重绘的时候，昂贵属性如 box-shadow&#x2F;border-radius&#x2F;filter&#x2F;透明度&#x2F;:nth-child 等，会降低浏览器的渲染性能</p>
+<h1 id="三、总结"><a href="#三、总结" class="headerlink" title="三、总结"></a>三、总结</h1><p>css 实现性能的方式可以从选择器嵌套、属性特性、减少 http 这三面考虑，同时还要注意 css 代码的加载顺序</p>
+]]></content>
+  </entry>
+  <entry>
+    <title>Angular 框架使用</title>
+    <url>/2017/09/26/Angular%E6%A1%86%E6%9E%B6/</url>
+    <content><![CDATA[<h1 id="Angular-框架"><a href="#Angular-框架" class="headerlink" title="Angular 框架"></a>Angular 框架</h1>]]></content>
+  </entry>
+  <entry>
     <title>hello word</title>
     <url>/2017/09/25/hello-world/</url>
     <content><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
@@ -107,6 +112,134 @@ visited 表示元素被点击后的状态格式：
 
 <p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
 ]]></content>
+  </entry>
+  <entry>
+    <title>react_router_dom V5与V6 的区别</title>
+    <url>/2020/10/20/react-router-dom/</url>
+    <content><![CDATA[<h2 id="1-v6-中-Switch-名称变为-Routes"><a href="#1-v6-中-Switch-名称变为-Routes" class="headerlink" title="1. v6 中 Switch 名称变为 Routes"></a>1. v6 中 Switch 名称变为 Routes</h2><p>代码如下：</p>
+<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">Routes</span> &#125; <span class="keyword">from</span> <span class="string">&quot;react-router-dom&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">App</span>(<span class="params"></span>) &#123;</span><br><span class="line"></span><br><span class="line"><span class="keyword">return</span> (</span><br><span class="line"></span><br><span class="line">   <span class="language-xml"><span class="tag">&lt;<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="language-xml"></span></span><br><span class="line"><span class="language-xml"></span></span><br><span class="line"><span class="language-xml">   <span class="tag">&lt;<span class="name">Routes</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">    .....</span></span><br><span class="line"><span class="language-xml"> 	 <span class="tag">&lt;/<span class="name">Routes</span>&gt;</span></span></span><br><span class="line"><span class="language-xml"></span></span><br><span class="line"><span class="language-xml">  <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line"></span><br><span class="line">  );</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+
+<h2 id="2-v6-的变化"><a href="#2-v6-的变化" class="headerlink" title="2. v6 的变化"></a>2. v6 <Route>的变化</Route></h2><p>不再支持子组件和 component , 改为 element</p>
+<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line">&lt;<span class="title class_">Route</span> path=<span class="string">&quot;/home&quot;</span> &gt;</span><br><span class="line"></span><br><span class="line"><span class="language-xml"><span class="tag">&lt;<span class="name">Index</span> /&gt;</span></span></span><br><span class="line"></span><br><span class="line">&lt;/<span class="title class_">Route</span>&gt;</span><br><span class="line"></span><br><span class="line"><span class="language-xml"><span class="tag">&lt;<span class="name">Route</span> <span class="attr">path</span>=<span class="string">&#x27;/login&#x27;</span> <span class="attr">component</span>=<span class="string">&#123;Login&#125;</span>&gt;</span><span class="tag">&lt;/<span class="name">Route</span>&gt;</span></span></span><br></pre></td></tr></table></figure>
+
+
+
+
+
+
+<p>改为</p>
+<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line">&lt;<span class="title class_">Route</span> path=<span class="string">&quot;/home&quot;</span> element=&#123; <span class="language-xml"><span class="tag">&lt;<span class="name">Index</span> /&gt;</span></span> &#125;&gt;</span><br><span class="line"></span><br><span class="line">&lt;/<span class="title class_">Route</span>&gt;</span><br><span class="line"></span><br><span class="line"><span class="language-xml"><span class="tag">&lt;<span class="name">Route</span> <span class="attr">path</span>=<span class="string">&#x27;/login&#x27;</span> <span class="attr">element</span>=<span class="string">&#123;</span> &lt;<span class="attr">Login</span> /&gt;</span> &#125;&gt;</span></span><br><span class="line"><span class="language-xml"></span></span><br><span class="line"><span class="language-xml"><span class="tag">&lt;/<span class="name">Route</span>&gt;</span></span></span><br></pre></td></tr></table></figure>
+
+
+
+
+<p>注：</p>
+<p>element 的值为组件标签，不要忘记写成标签形式</p>
+<p>Route 标签必须包含在Routes标签里，会不然报错</p>
+<h2 id="3-v6-中，exact-属性不再需要"><a href="#3-v6-中，exact-属性不再需要" class="headerlink" title="3. v6 中，exact 属性不再需要"></a>3. v6 中，exact 属性不再需要</h2><p>v6 内部算法改变，不再需要加exact实现精确匹配路由，默认就是匹配完整路径。</p>
+<p>如果需要旧的行为，路径后加&#x2F;*</p>
+<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line">&lt;<span class="title class_">Route</span> path=<span class="string">&quot;/products/*&quot;</span> element=&#123;<span class="language-xml"><span class="tag">&lt;<span class="name">Products</span> /&gt;</span></span>&#125; /&gt;</span><br><span class="line"></span><br><span class="line"><span class="language-xml"><span class="tag">&lt;<span class="name">Route</span> <span class="attr">path</span>=<span class="string">&quot;/products/:productId&quot;</span> <span class="attr">element</span>=<span class="string">&#123;</span>&lt;<span class="attr">ProductDetail</span> /&gt;</span>&#125; /&gt;</span></span><br></pre></td></tr></table></figure>
+
+
+
+<p>route属性  路由是否区分大小写 </p>
+<p>caseSensitive&#x3D;{true}</p>
+<h2 id="4-v6-中，Route-先后顺序不再重要，React-Router-能够自动找出最优匹配路径"><a href="#4-v6-中，Route-先后顺序不再重要，React-Router-能够自动找出最优匹配路径" class="headerlink" title="4. v6 中，Route 先后顺序不再重要，React Router 能够自动找出最优匹配路径"></a>4. v6 中，Route 先后顺序不再重要，React Router 能够自动找出最优匹配路径</h2><h2 id="5-v6-保留Link，NavLink，-但是NavLink的activeClassName属性被移除"><a href="#5-v6-保留Link，NavLink，-但是NavLink的activeClassName属性被移除" class="headerlink" title="5.v6 保留Link，NavLink， 但是NavLink的activeClassName属性被移除"></a>5.v6 保留Link，NavLink， 但是NavLink的activeClassName属性被移除</h2><p>删除了 activeClassName 样式，如果想自己给它设置想要的highligh样式.</p>
+<p>可以通过style属性修改actived的状态, 通过箭头函数接收到isActive参数值;</p>
+<p>style接收一个css样式数据返回值进行修改<NavLink> active状态样式。</NavLink></p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">NavLink</span> &#125; <span class="keyword">from</span> <span class="string">&quot;react-router-dom&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="keyword">function</span> <span class="title function_">Invoices</span>(<span class="params"></span>) &#123;</span><br><span class="line"></span><br><span class="line"><span class="keyword">return</span> (</span><br><span class="line"></span><br><span class="line"><span class="language-xml"><span class="tag">&lt;<span class="name">div</span> <span class="attr">style</span>=<span class="string">&#123;&#123;</span> <span class="attr">display:</span> &quot;<span class="attr">flex</span>&quot; &#125;&#125;&gt;</span></span></span><br><span class="line"><span class="language-xml"></span></span><br><span class="line"><span class="language-xml"></span></span><br><span class="line"><span class="language-xml"><span class="tag">&lt;<span class="name">NavLink</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml"></span></span></span><br><span class="line"><span class="tag"><span class="language-xml"><span class="attr">style</span>=<span class="string">&#123;(&#123;</span> <span class="attr">isActive</span> &#125;) =&gt;</span> &#123;</span></span><br><span class="line"><span class="language-xml"></span></span><br><span class="line"><span class="language-xml">  return &#123;</span></span><br><span class="line"><span class="language-xml"></span></span><br><span class="line"><span class="language-xml">  display: &quot;block&quot;,</span></span><br><span class="line"><span class="language-xml"></span></span><br><span class="line"><span class="language-xml">  margin: &quot;1rem 0&quot;,</span></span><br><span class="line"><span class="language-xml"></span></span><br><span class="line"><span class="language-xml">  color: isActive ? &quot;red&quot; : &quot;&quot;</span></span><br><span class="line"><span class="language-xml"></span></span><br><span class="line"><span class="language-xml">            &#125;;</span></span><br><span class="line"><span class="language-xml">    </span></span><br><span class="line"><span class="language-xml">        &#125;&#125;</span></span><br><span class="line"><span class="language-xml"></span></span><br><span class="line"><span class="language-xml"></span></span><br><span class="line"><span class="language-xml"></span></span><br><span class="line"><span class="language-xml">to=&#123;`/invoices`&#125;</span></span><br><span class="line"><span class="language-xml"></span></span><br><span class="line"><span class="language-xml">&gt;</span></span><br><span class="line"><span class="language-xml"></span></span><br><span class="line"><span class="language-xml"><span class="tag">&lt;/<span class="name">NavLink</span>&gt;</span></span></span><br><span class="line"><span class="language-xml"></span></span><br><span class="line"><span class="language-xml"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line"></span><br><span class="line">  );</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">// or</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&lt;<span class="title class_">NavLink</span> className=&#123;<span class="function">(<span class="params">&#123; isActive &#125;</span>) =&gt;</span> isActive ? <span class="string">&quot;red&quot;</span> : <span class="string">&quot;blue&quot;</span>&#125; /&gt;</span><br></pre></td></tr></table></figure>
+
+
+<h2 id="6-v6-移除-Redirect组件，改为使用-Navigate"><a href="#6-v6-移除-Redirect组件，改为使用-Navigate" class="headerlink" title="6. v6 移除 Redirect组件，改为使用 Navigate:"></a>6. v6 移除 Redirect组件，改为使用 Navigate:</h2><figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line">#<span class="number">5</span></span><br><span class="line">&lt;<span class="title class_">Redirect</span> to=<span class="string">&quot;/home&quot;</span> /&gt;</span><br><span class="line"></span><br><span class="line">#<span class="number">6</span></span><br><span class="line">&lt;<span class="title class_">Route</span> path=<span class="string">&quot;/&quot;</span> element =&#123;<span class="language-xml"><span class="tag">&lt;<span class="name">Navigate</span> <span class="attr">replace</span> <span class="attr">to</span>=<span class="string">&quot;/welcome&quot;</span> /&gt;</span></span>&#125; /&gt;</span><br></pre></td></tr></table></figure>
+
+
+
+<p><Navigate replace to="/welcome"> 是对旧的 Redirect 的完整取代。</Navigate></p>
+<p>replace 属性也可以省略，不过行为由 replace 改为 push</p>
+<h2 id="7-v6-嵌套路由改为相对匹配"><a href="#7-v6-嵌套路由改为相对匹配" class="headerlink" title="7. v6 嵌套路由改为相对匹配"></a>7. v6 嵌套路由改为相对匹配</h2><p>嵌套路由必须放在<Routes> </Routes>中，且使用相对路径，不再像 v5 那样必须提供完整路径，因此路径变短。</p>
+<pre><code>&lt;Route path=&#39;/about&#39; element=&#123;&lt;About /&gt;&#125;&gt;
+    &lt;Route index element=&#123;&lt;Address /&gt;&#125; /&gt;
+
+    &lt;Route path=&#39;address&#39; element=&#123;&lt;Address /&gt;&#125;&gt;&lt;/Route&gt;
+
+    &lt;Route path=&#39;information&#39; element=&#123;&lt;Information /&gt;&#125;&gt;&lt;/Route&gt;
+
+    &lt;Route path=&#39;joinus&#39; element=&#123;&lt;Join /&gt;&#125;&gt;&lt;/Route&gt;
+&lt;/Route&gt;
+</code></pre>
+<h2 id="8-使用Outlet组件，此组件是一个占位符，告诉-React-Router-嵌套的内容应该放到哪里。"><a href="#8-使用Outlet组件，此组件是一个占位符，告诉-React-Router-嵌套的内容应该放到哪里。" class="headerlink" title="8.使用Outlet组件，此组件是一个占位符，告诉 React Router 嵌套的内容应该放到哪里。"></a>8.使用Outlet组件，此组件是一个占位符，告诉 React Router 嵌套的内容应该放到哪里。</h2><p>import {Outlet} from “react-router-dom”;</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> <span class="title function_">Welcome</span>=(<span class="params"></span>) =&gt; &#123;</span><br><span class="line"></span><br><span class="line"><span class="keyword">return</span></span><br><span class="line"></span><br><span class="line"><span class="language-xml"><span class="tag">&lt;<span class="name">section</span>&gt;</span></span></span><br><span class="line"><span class="language-xml"></span></span><br><span class="line"><span class="language-xml"></span></span><br><span class="line"><span class="language-xml">  <span class="tag">&lt;<span class="name">h1</span>&gt;</span>Welcome<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span></span><br><span class="line"><span class="language-xml"></span></span><br><span class="line"><span class="language-xml">  <span class="tag">&lt;<span class="name">Outlet</span> /&gt;</span></span></span><br><span class="line"><span class="language-xml"></span></span><br><span class="line"><span class="language-xml"><span class="tag">&lt;/<span class="name">section</span>&gt;</span></span></span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="title class_">Welcome</span>;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+<h2 id="9-使用index-指定默认路由-或者path为空"><a href="#9-使用index-指定默认路由-或者path为空" class="headerlink" title="9. 使用index 指定默认路由, 或者path为空"></a>9. 使用index 指定默认路由, 或者path为空</h2><p>当嵌套路由有多个子路由的时候，可以增加 index 属性来指定默认路由。</p>
+<pre><code>function App()
+
+  return (
+    &lt;Routes&gt;
+
+      &lt;Route path=&quot;/&quot; element=&#123;&lt;Layout /&gt;&#125;&gt;
+
+      &lt;Route index element=&#123;&lt;About /&gt;&#125; /&gt;
+
+      &lt;Route path=&quot;user&quot; element=&#123;&lt;User /&gt;&#125; /&gt;
+
+      &lt;Route path=&quot;about&quot; element=&#123;&lt;About /&gt;&#125; /&gt;
+
+      &lt;/Route&gt;
+
+    &lt;/Routes&gt;
+       );
+
+&#125;
+</code></pre>
+<p>或者</p>
+<p>设置path为空，来指定默认路由，代码如下：</p>
+<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> router  =[&#123;</span><br><span class="line"></span><br><span class="line">  <span class="attr">path</span>: <span class="string">&quot;/home&quot;</span>,</span><br><span class="line"></span><br><span class="line">  element :<span class="language-xml">&lt;Home/ &gt;,</span></span><br><span class="line"><span class="language-xml"></span></span><br><span class="line"><span class="language-xml">  children: [</span></span><br><span class="line"><span class="language-xml">&#123;</span></span><br><span class="line"><span class="language-xml"></span></span><br><span class="line"><span class="language-xml">path:&quot;&quot;,</span></span><br><span class="line"><span class="language-xml"></span></span><br><span class="line"><span class="language-xml">element:<span class="tag">&lt;<span class="name">News</span>/&gt;</span></span></span><br><span class="line"><span class="language-xml"></span></span><br><span class="line"><span class="language-xml">&#125;,</span></span><br><span class="line"><span class="language-xml"></span></span><br><span class="line"><span class="language-xml">&#123;</span></span><br><span class="line"><span class="language-xml"></span></span><br><span class="line"><span class="language-xml">path: &quot; news &quot; ,</span></span><br><span class="line"><span class="language-xml"></span></span><br><span class="line"><span class="language-xml">element:<span class="tag">&lt;<span class="name">News</span>/&gt;</span></span></span><br><span class="line"><span class="language-xml"></span></span><br><span class="line"><span class="language-xml">&#125;</span></span><br><span class="line"><span class="language-xml">  ]</span></span><br><span class="line"><span class="language-xml"></span></span><br><span class="line"><span class="language-xml">&#125;]</span></span><br></pre></td></tr></table></figure>
+
+
+
+
+
+
+<h2 id="10-v6-用useNavigate实现编程式导航，useHistory被移除"><a href="#10-v6-用useNavigate实现编程式导航，useHistory被移除" class="headerlink" title="10. v6 用useNavigate实现编程式导航，useHistory被移除"></a>10. v6 用useNavigate实现编程式导航，useHistory被移除</h2><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123;useNavigate&#125; <span class="keyword">from</span> <span class="string">&quot;react-router-dom&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> navigate = <span class="title function_">useNavigate</span>();</span><br><span class="line"></span><br><span class="line"><span class="title function_">navigate</span>(<span class="string">&quot;/welcome&quot;</span>);   <span class="comment">// push</span></span><br><span class="line"> <span class="title function_">navigate</span>(<span class="string">&#x27;/b&#x27;</span>, &#123; <span class="attr">state</span>: &#123; <span class="attr">name</span>: <span class="string">&#x27;zhou&#x27;</span> &#125; &#125;)</span><br></pre></td></tr></table></figure>
+
+
+<p>如果要重定向:</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="title function_">navigate</span>(<span class="string">&quot;/welcome&quot;</span>,&#123;<span class="attr">replace</span>:<span class="literal">true</span>&#125;);</span><br></pre></td></tr></table></figure>
+
+
+
+<p>除此之外，还可以使用navigate(-1)后退到前一页，使用navigate(-2)后退到前一页的前一页，navigate(1)前向导航，依此类推。</p>
+<p>使用 useLocation 接收 useNavigate传递过来的值</p>
+<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 接收跳转传过来的值</span></span><br><span class="line"><span class="keyword">import</span> &#123; useLocation &#125; <span class="keyword">from</span> <span class="string">&#x27;react-router-dom&#x27;</span></span><br><span class="line"><span class="keyword">const</span> location = <span class="title function_">useLocation</span>()</span><br><span class="line"><span class="keyword">const</span> &#123; state &#125; = location</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(location, state);</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<h2 id="11-hooks-中获取参数的方法"><a href="#11-hooks-中获取参数的方法" class="headerlink" title="11. hooks 中获取参数的方法"></a>11. hooks 中获取参数的方法</h2><p>useParams</p>
+<p>返回当前动态路由参数 </p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">Profile</span>(<span class="params"></span>) &#123;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">const</span> params = <span class="title function_">useParams</span>()</span><br><span class="line"></span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(params.<span class="property">userId</span>)</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> ()</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+
+<p>useSearchParams</p>
+<p>使用 useSearchParams hook 来访问查询参数(&#x2F;xx&#x2F;xx?userId&#x3D;123)。其用法和 useState 类似，会返回当前对象和更改它的方法。</p>
+<p>更改 searchParams 时，必须传入所有的查询参数，否则会覆盖已有参数。</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">Profile</span>(<span class="params"></span>) &#123;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">const</span> params = <span class="title function_">useSearchParams</span>()</span><br><span class="line"></span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(params.<span class="property">userId</span>)</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> ()</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+
+<h2 id="12-useRoutes-声明式的路由配置方式"><a href="#12-useRoutes-声明式的路由配置方式" class="headerlink" title="12. useRoutes 声明式的路由配置方式"></a>12. useRoutes 声明式的路由配置方式</h2><p>声明式路由中，不能写index, 可以让path: “” , 来实现显示默认组件;</p>
+<p>useRoutes函数，会返回已经渲染好的路由元素</p>
+<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> element = <span class="title function_">useRoutes</span>([</span><br><span class="line">&#123;</span><br><span class="line"></span><br><span class="line">  <span class="attr">path</span>: <span class="string">&quot;/&quot;</span>,</span><br><span class="line"></span><br><span class="line">  <span class="attr">element</span>: <span class="language-xml"><span class="tag">&lt;<span class="name">Dashboard</span> /&gt;</span></span>,</span><br><span class="line"></span><br><span class="line">  <span class="attr">children</span>: [</span><br><span class="line"></span><br><span class="line">      &#123;</span><br><span class="line"></span><br><span class="line">        <span class="attr">path</span>: <span class="string">&quot;&quot;</span>,</span><br><span class="line"></span><br><span class="line">        <span class="attr">element</span>: <span class="language-xml"><span class="tag">&lt;<span class="name">DashboardMessages</span> /&gt;</span></span></span><br><span class="line"></span><br><span class="line">      &#125;,</span><br><span class="line"></span><br><span class="line">      &#123;</span><br><span class="line"></span><br><span class="line">        <span class="attr">path</span>: <span class="string">&quot;/messages&quot;</span>,</span><br><span class="line"></span><br><span class="line">        <span class="attr">element</span>: <span class="language-xml"><span class="tag">&lt;<span class="name">DashboardMessages</span> /&gt;</span></span></span><br><span class="line"></span><br><span class="line">      &#125;,</span><br><span class="line"></span><br><span class="line">      &#123; <span class="attr">path</span>: <span class="string">&quot;/tasks&quot;</span>, <span class="attr">element</span>: <span class="language-xml"><span class="tag">&lt;<span class="name">DashboardTasks</span> /&gt;</span></span> &#125;</span><br><span class="line"></span><br><span class="line">  &#125;,</span><br><span class="line"></span><br><span class="line">  &#123; <span class="attr">path</span>: <span class="string">&quot;/team&quot;</span>, <span class="attr">element</span>: <span class="language-xml"><span class="tag">&lt;<span class="name">AboutPage</span> /&gt;</span></span> &#125;</span><br><span class="line"></span><br><span class="line">]);</span><br></pre></td></tr></table></figure>]]></content>
   </entry>
   <entry>
     <title>js数据类型</title>
@@ -231,7 +364,7 @@ visited 表示元素被点击后的状态格式：
 
 <p><code>a</code>的值为一个基本类型，是存储在栈中，将<code>a</code>的值赋给<code>b</code>，虽然两个变量的值相等，但是两个变量保存了两个不同的内存地址</p>
 <p>下图演示了基本类型赋值的过程：</p>
-<p><img src="https://static.vue-js.com/906ffb90-6463-11eb-85f6-6fac77c0c9b3.png" alt="img"></p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://static.vue-js.com/906ffb90-6463-11eb-85f6-6fac77c0c9b3.png" alt="img"></p>
 <h3 id="引用类型"><a href="#引用类型" class="headerlink" title="引用类型"></a>引用类型</h3><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> obj1 = &#123;&#125;</span><br><span class="line"><span class="keyword">var</span> obj2 = obj1;</span><br><span class="line">obj2.<span class="property">name</span> = <span class="string">&quot;Xxx&quot;</span>;</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(obj1.<span class="property">name</span>); <span class="comment">// xxx</span></span><br></pre></td></tr></table></figure>
 
 
@@ -239,7 +372,7 @@ visited 表示元素被点击后的状态格式：
 <p><strong>引用类型数据存放在堆中，每个堆内存对象都有对应的引用地址指向它，引用地址存放在栈中。</strong></p>
 <p><code>obj1</code>是一个引用类型，在赋值操作过程汇总，实际是将堆内存对象在栈内存的引用地址复制了一份给了<code>obj2</code>，实际上他们共同指向了同一个堆内存对象，所以更改<code>obj2</code>会对<code>obj1</code>产生影响</p>
 <p>下图演示这个引用类型赋值过程</p>
-<p><img src="https://static.vue-js.com/a34bdd10-6463-11eb-ab90-d9ae814b240d.png" alt="img"></p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://static.vue-js.com/a34bdd10-6463-11eb-ab90-d9ae814b240d.png" alt="img"></p>
 <h3 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h3><ul>
 <li><p>声明变量时不同的内存地址分配：</p>
 <ul>
@@ -276,7 +409,7 @@ visited 表示元素被点击后的状态格式：
 
 <p>　　虽然 instanceof 能够判断出 [ ] 是Array的实例，但它认为 [ ] 也是Object的实例，为什么呢？</p>
 <p>　 从 instanceof 能够判断出 [ ].<strong>proto</strong> 指向 Array.prototype，而 Array.prototype.<strong>proto</strong> 又指向了Object.prototype，最终 Object.prototype.<strong>proto</strong> 指向了null，标志着原型链的结束。因此，[ ]、Array、Object 就在内部形成了一条原型链，如下图所示：</p>
-<p><img src="https://img-blog.csdnimg.cn/941b17a88de44dd2a6778cdf738a82b4.png" alt="img"></p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://img-blog.csdnimg.cn/941b17a88de44dd2a6778cdf738a82b4.png" alt="img"></p>
 <p>　　 从原型链可以看出，[] 的 <strong>proto</strong> 直接指向Array.prototype，间接指向 Object.prototype，所以按照 instanceof 的判断规则，[] 就是Object的实例。依次类推，类似的 new Date()、new Person() 也会形成一条对应的原型链 。</p>
 <p>　　因此，instanceof 只能用来判断两个对象是否属于实例关系， 而不能判断一个对象实例具体属于哪种类型。</p>
 <p>　 针对数组的这个问题，ES5 提供了 Array.isArray() 方法 。该方法用以确认某个对象本身是否为 Array 类型，而不区分该对象在哪个环境中创建。</p>
@@ -285,12 +418,12 @@ visited 表示元素被点击后的状态格式：
 <p>　　Array.isArray() 本质上检测的是对象的 [[Class]] 值。</p>
 <p>　　[[Class]] 是对象的一个内部属性，里面包含了对象的类型信息，其格式为 [object Xxx]，Xxx 就是对应的具体类型 。对于数组而言，[[Class]] 的值就是 [object Array] 。</p>
 <h2 id="3、constructor"><a href="#3、constructor" class="headerlink" title="3、constructor"></a><strong>3、constructor</strong></h2><p>　　当一个函数 F被定义时，JS引擎会为F添加 prototype 原型，然后再在 prototype上添加一个 constructor 属性，并让其指向 F 的引用。如下图所示：</p>
-<p><img src="https://img-blog.csdnimg.cn/481e49f4bddb49909f8b694e41cd6e00.png" alt="image-20221116085136260"></p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://img-blog.csdnimg.cn/481e49f4bddb49909f8b694e41cd6e00.png" alt="image-20221116085136260"></p>
 <p>　　当执行 var f &#x3D; new F() 时，F 被当成了构造函数，f 是F的实例对象，此时 F 原型上的 constructor 传递到了 f 上，因此 f.constructor &#x3D;&#x3D; F</p>
-<p><img src="https://img-blog.csdnimg.cn/4eaf44f6cc604d87b8ecf0822ec4a430.png" alt="image-20221116085105251"></p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://img-blog.csdnimg.cn/4eaf44f6cc604d87b8ecf0822ec4a430.png" alt="image-20221116085105251"></p>
 <p>　　可以看出，F 利用原型对象上的 constructor 引用了自身，当 F 作为构造函数来创建对象时，原型上的 constructor 就被遗传到了新创建的对象上， 从原型链角度讲，构造函数 F 就是新对象的类型。这样做的意义是，让新对象在诞生以后，就具有可追溯的数据类型。</p>
 <p>　　同样，JavaScript 中的内置对象在内部构建时也是这样做的，如下图所示。</p>
-<p><img src="https://img-blog.csdnimg.cn/8889e53d3e8c4d078837e10265a4ddbf.png" alt="image-20221116085021720"></p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://img-blog.csdnimg.cn/8889e53d3e8c4d078837e10265a4ddbf.png" alt="image-20221116085021720"></p>
 <p><strong>总结：</strong></p>
 <p>　　1. null 和 undefined 是无效的对象，因此是不会有 constructor 存在的，这两种类型的数据需要通过其他方式来判断。</p>
 <p>　　2. 函数的 constructor 是不稳定的，这个主要体现在自定义对象上，当开发者重写 prototype 后，原有的 constructor 引用会丢失，constructor 会默认为 Object。</p>
@@ -312,7 +445,7 @@ visited 表示元素被点击后的状态格式：
 <p>前端开发过程中在与后端对接之前需要自己先造出一些数据，比如：mock等<br>图片验证码同样也需要前端自己先生成。</p>
 <p>使用插件<br>react-captcha-code 这是一个基于React(依赖react, react-dom) 和 Canvas 的小插件</p>
 <p>样式</p>
-<p><img src="https://img-blog.csdnimg.cn/ff8d8879e9204806ad54d01925d9f938.png"></p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://img-blog.csdnimg.cn/ff8d8879e9204806ad54d01925d9f938.png"></p>
 <p>安装</p>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">npm install react-captcha-code --save</span><br></pre></td></tr></table></figure>
 <p>属性和方法</p>
@@ -384,134 +517,6 @@ visited 表示元素被点击后的状态格式：
 ]]></content>
   </entry>
   <entry>
-    <title>react_router_dom V5与V6 的区别</title>
-    <url>/2020/10/20/react-router-dom/</url>
-    <content><![CDATA[<h2 id="1-v6-中-Switch-名称变为-Routes"><a href="#1-v6-中-Switch-名称变为-Routes" class="headerlink" title="1. v6 中 Switch 名称变为 Routes"></a>1. v6 中 Switch 名称变为 Routes</h2><p>代码如下：</p>
-<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">Routes</span> &#125; <span class="keyword">from</span> <span class="string">&quot;react-router-dom&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">App</span>(<span class="params"></span>) &#123;</span><br><span class="line"></span><br><span class="line"><span class="keyword">return</span> (</span><br><span class="line"></span><br><span class="line">   <span class="language-xml"><span class="tag">&lt;<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="language-xml"></span></span><br><span class="line"><span class="language-xml"></span></span><br><span class="line"><span class="language-xml">   <span class="tag">&lt;<span class="name">Routes</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">    .....</span></span><br><span class="line"><span class="language-xml"> 	 <span class="tag">&lt;/<span class="name">Routes</span>&gt;</span></span></span><br><span class="line"><span class="language-xml"></span></span><br><span class="line"><span class="language-xml">  <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line"></span><br><span class="line">  );</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-
-
-
-<h2 id="2-v6-的变化"><a href="#2-v6-的变化" class="headerlink" title="2. v6 的变化"></a>2. v6 <Route>的变化</h2><p>不再支持子组件和 component , 改为 element</p>
-<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line">&lt;<span class="title class_">Route</span> path=<span class="string">&quot;/home&quot;</span> &gt;</span><br><span class="line"></span><br><span class="line"><span class="language-xml"><span class="tag">&lt;<span class="name">Index</span> /&gt;</span></span></span><br><span class="line"></span><br><span class="line">&lt;/<span class="title class_">Route</span>&gt;</span><br><span class="line"></span><br><span class="line"><span class="language-xml"><span class="tag">&lt;<span class="name">Route</span> <span class="attr">path</span>=<span class="string">&#x27;/login&#x27;</span> <span class="attr">component</span>=<span class="string">&#123;Login&#125;</span>&gt;</span><span class="tag">&lt;/<span class="name">Route</span>&gt;</span></span></span><br></pre></td></tr></table></figure>
-
-
-
-
-
-
-<p>改为</p>
-<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line">&lt;<span class="title class_">Route</span> path=<span class="string">&quot;/home&quot;</span> element=&#123; <span class="language-xml"><span class="tag">&lt;<span class="name">Index</span> /&gt;</span></span> &#125;&gt;</span><br><span class="line"></span><br><span class="line">&lt;/<span class="title class_">Route</span>&gt;</span><br><span class="line"></span><br><span class="line"><span class="language-xml"><span class="tag">&lt;<span class="name">Route</span> <span class="attr">path</span>=<span class="string">&#x27;/login&#x27;</span> <span class="attr">element</span>=<span class="string">&#123;</span> &lt;<span class="attr">Login</span> /&gt;</span> &#125;&gt;</span></span><br><span class="line"><span class="language-xml"></span></span><br><span class="line"><span class="language-xml"><span class="tag">&lt;/<span class="name">Route</span>&gt;</span></span></span><br></pre></td></tr></table></figure>
-
-
-
-
-<p>注：</p>
-<p>element 的值为组件标签，不要忘记写成标签形式</p>
-<p>Route 标签必须包含在Routes标签里，会不然报错</p>
-<h2 id="3-v6-中，exact-属性不再需要"><a href="#3-v6-中，exact-属性不再需要" class="headerlink" title="3. v6 中，exact 属性不再需要"></a>3. v6 中，exact 属性不再需要</h2><p>v6 内部算法改变，不再需要加exact实现精确匹配路由，默认就是匹配完整路径。</p>
-<p>如果需要旧的行为，路径后加&#x2F;*</p>
-<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line">&lt;<span class="title class_">Route</span> path=<span class="string">&quot;/products/*&quot;</span> element=&#123;<span class="language-xml"><span class="tag">&lt;<span class="name">Products</span> /&gt;</span></span>&#125; /&gt;</span><br><span class="line"></span><br><span class="line"><span class="language-xml"><span class="tag">&lt;<span class="name">Route</span> <span class="attr">path</span>=<span class="string">&quot;/products/:productId&quot;</span> <span class="attr">element</span>=<span class="string">&#123;</span>&lt;<span class="attr">ProductDetail</span> /&gt;</span>&#125; /&gt;</span></span><br></pre></td></tr></table></figure>
-
-
-
-<p>route属性  路由是否区分大小写 </p>
-<p>caseSensitive&#x3D;{true}</p>
-<h2 id="4-v6-中，Route-先后顺序不再重要，React-Router-能够自动找出最优匹配路径"><a href="#4-v6-中，Route-先后顺序不再重要，React-Router-能够自动找出最优匹配路径" class="headerlink" title="4. v6 中，Route 先后顺序不再重要，React Router 能够自动找出最优匹配路径"></a>4. v6 中，Route 先后顺序不再重要，React Router 能够自动找出最优匹配路径</h2><h2 id="5-v6-保留Link，NavLink，-但是NavLink的activeClassName属性被移除"><a href="#5-v6-保留Link，NavLink，-但是NavLink的activeClassName属性被移除" class="headerlink" title="5.v6 保留Link，NavLink， 但是NavLink的activeClassName属性被移除"></a>5.v6 保留Link，NavLink， 但是NavLink的activeClassName属性被移除</h2><p>删除了 activeClassName 样式，如果想自己给它设置想要的highligh样式.</p>
-<p>可以通过style属性修改actived的状态, 通过箭头函数接收到isActive参数值;</p>
-<p>style接收一个css样式数据返回值进行修改<NavLink> active状态样式。</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">NavLink</span> &#125; <span class="keyword">from</span> <span class="string">&quot;react-router-dom&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="keyword">function</span> <span class="title function_">Invoices</span>(<span class="params"></span>) &#123;</span><br><span class="line"></span><br><span class="line"><span class="keyword">return</span> (</span><br><span class="line"></span><br><span class="line"><span class="language-xml"><span class="tag">&lt;<span class="name">div</span> <span class="attr">style</span>=<span class="string">&#123;&#123;</span> <span class="attr">display:</span> &quot;<span class="attr">flex</span>&quot; &#125;&#125;&gt;</span></span></span><br><span class="line"><span class="language-xml"></span></span><br><span class="line"><span class="language-xml"></span></span><br><span class="line"><span class="language-xml"><span class="tag">&lt;<span class="name">NavLink</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml"></span></span></span><br><span class="line"><span class="tag"><span class="language-xml"><span class="attr">style</span>=<span class="string">&#123;(&#123;</span> <span class="attr">isActive</span> &#125;) =&gt;</span> &#123;</span></span><br><span class="line"><span class="language-xml"></span></span><br><span class="line"><span class="language-xml">  return &#123;</span></span><br><span class="line"><span class="language-xml"></span></span><br><span class="line"><span class="language-xml">  display: &quot;block&quot;,</span></span><br><span class="line"><span class="language-xml"></span></span><br><span class="line"><span class="language-xml">  margin: &quot;1rem 0&quot;,</span></span><br><span class="line"><span class="language-xml"></span></span><br><span class="line"><span class="language-xml">  color: isActive ? &quot;red&quot; : &quot;&quot;</span></span><br><span class="line"><span class="language-xml"></span></span><br><span class="line"><span class="language-xml">            &#125;;</span></span><br><span class="line"><span class="language-xml">    </span></span><br><span class="line"><span class="language-xml">        &#125;&#125;</span></span><br><span class="line"><span class="language-xml"></span></span><br><span class="line"><span class="language-xml"></span></span><br><span class="line"><span class="language-xml"></span></span><br><span class="line"><span class="language-xml">to=&#123;`/invoices`&#125;</span></span><br><span class="line"><span class="language-xml"></span></span><br><span class="line"><span class="language-xml">&gt;</span></span><br><span class="line"><span class="language-xml"></span></span><br><span class="line"><span class="language-xml"><span class="tag">&lt;/<span class="name">NavLink</span>&gt;</span></span></span><br><span class="line"><span class="language-xml"></span></span><br><span class="line"><span class="language-xml"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line"></span><br><span class="line">  );</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">// or</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&lt;<span class="title class_">NavLink</span> className=&#123;<span class="function">(<span class="params">&#123; isActive &#125;</span>) =&gt;</span> isActive ? <span class="string">&quot;red&quot;</span> : <span class="string">&quot;blue&quot;</span>&#125; /&gt;</span><br></pre></td></tr></table></figure>
-
-
-<h2 id="6-v6-移除-Redirect组件，改为使用-Navigate"><a href="#6-v6-移除-Redirect组件，改为使用-Navigate" class="headerlink" title="6. v6 移除 Redirect组件，改为使用 Navigate:"></a>6. v6 移除 Redirect组件，改为使用 Navigate:</h2><figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line">#<span class="number">5</span></span><br><span class="line">&lt;<span class="title class_">Redirect</span> to=<span class="string">&quot;/home&quot;</span> /&gt;</span><br><span class="line"></span><br><span class="line">#<span class="number">6</span></span><br><span class="line">&lt;<span class="title class_">Route</span> path=<span class="string">&quot;/&quot;</span> element =&#123;<span class="language-xml"><span class="tag">&lt;<span class="name">Navigate</span> <span class="attr">replace</span> <span class="attr">to</span>=<span class="string">&quot;/welcome&quot;</span> /&gt;</span></span>&#125; /&gt;</span><br></pre></td></tr></table></figure>
-
-
-
-<p><Navigate replace to="/welcome" /> 是对旧的 Redirect 的完整取代。</p>
-<p>replace 属性也可以省略，不过行为由 replace 改为 push</p>
-<h2 id="7-v6-嵌套路由改为相对匹配"><a href="#7-v6-嵌套路由改为相对匹配" class="headerlink" title="7. v6 嵌套路由改为相对匹配"></a>7. v6 嵌套路由改为相对匹配</h2><p>嵌套路由必须放在<Routes> </Routes>中，且使用相对路径，不再像 v5 那样必须提供完整路径，因此路径变短。</p>
-<pre><code>&lt;Route path=&#39;/about&#39; element=&#123;&lt;About /&gt;&#125;&gt;
-    &lt;Route index element=&#123;&lt;Address /&gt;&#125; /&gt;
-
-    &lt;Route path=&#39;address&#39; element=&#123;&lt;Address /&gt;&#125;&gt;&lt;/Route&gt;
-
-    &lt;Route path=&#39;information&#39; element=&#123;&lt;Information /&gt;&#125;&gt;&lt;/Route&gt;
-
-    &lt;Route path=&#39;joinus&#39; element=&#123;&lt;Join /&gt;&#125;&gt;&lt;/Route&gt;
-&lt;/Route&gt;
-</code></pre>
-<h2 id="8-使用Outlet组件，此组件是一个占位符，告诉-React-Router-嵌套的内容应该放到哪里。"><a href="#8-使用Outlet组件，此组件是一个占位符，告诉-React-Router-嵌套的内容应该放到哪里。" class="headerlink" title="8.使用Outlet组件，此组件是一个占位符，告诉 React Router 嵌套的内容应该放到哪里。"></a>8.使用Outlet组件，此组件是一个占位符，告诉 React Router 嵌套的内容应该放到哪里。</h2><p>import {Outlet} from “react-router-dom”;</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> <span class="title function_">Welcome</span>=(<span class="params"></span>) =&gt; &#123;</span><br><span class="line"></span><br><span class="line"><span class="keyword">return</span></span><br><span class="line"></span><br><span class="line"><span class="language-xml"><span class="tag">&lt;<span class="name">section</span>&gt;</span></span></span><br><span class="line"><span class="language-xml"></span></span><br><span class="line"><span class="language-xml"></span></span><br><span class="line"><span class="language-xml">  <span class="tag">&lt;<span class="name">h1</span>&gt;</span>Welcome<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span></span><br><span class="line"><span class="language-xml"></span></span><br><span class="line"><span class="language-xml">  <span class="tag">&lt;<span class="name">Outlet</span> /&gt;</span></span></span><br><span class="line"><span class="language-xml"></span></span><br><span class="line"><span class="language-xml"><span class="tag">&lt;/<span class="name">section</span>&gt;</span></span></span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="title class_">Welcome</span>;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-
-<h2 id="9-使用index-指定默认路由-或者path为空"><a href="#9-使用index-指定默认路由-或者path为空" class="headerlink" title="9. 使用index 指定默认路由, 或者path为空"></a>9. 使用index 指定默认路由, 或者path为空</h2><p>当嵌套路由有多个子路由的时候，可以增加 index 属性来指定默认路由。</p>
-<pre><code>function App()
-
-  return (
-    &lt;Routes&gt;
-
-      &lt;Route path=&quot;/&quot; element=&#123;&lt;Layout /&gt;&#125;&gt;
-
-      &lt;Route index element=&#123;&lt;About /&gt;&#125; /&gt;
-
-      &lt;Route path=&quot;user&quot; element=&#123;&lt;User /&gt;&#125; /&gt;
-
-      &lt;Route path=&quot;about&quot; element=&#123;&lt;About /&gt;&#125; /&gt;
-
-      &lt;/Route&gt;
-
-    &lt;/Routes&gt;
-       );
-
-&#125;
-</code></pre>
-<p>或者</p>
-<p>设置path为空，来指定默认路由，代码如下：</p>
-<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> router  =[&#123;</span><br><span class="line"></span><br><span class="line">  <span class="attr">path</span>: <span class="string">&quot;/home&quot;</span>,</span><br><span class="line"></span><br><span class="line">  element :<span class="language-xml">&lt;Home/ &gt;,</span></span><br><span class="line"><span class="language-xml"></span></span><br><span class="line"><span class="language-xml">  children: [</span></span><br><span class="line"><span class="language-xml">&#123;</span></span><br><span class="line"><span class="language-xml"></span></span><br><span class="line"><span class="language-xml">path:&quot;&quot;,</span></span><br><span class="line"><span class="language-xml"></span></span><br><span class="line"><span class="language-xml">element:<span class="tag">&lt;<span class="name">News</span>/&gt;</span></span></span><br><span class="line"><span class="language-xml"></span></span><br><span class="line"><span class="language-xml">&#125;,</span></span><br><span class="line"><span class="language-xml"></span></span><br><span class="line"><span class="language-xml">&#123;</span></span><br><span class="line"><span class="language-xml"></span></span><br><span class="line"><span class="language-xml">path: &quot; news &quot; ,</span></span><br><span class="line"><span class="language-xml"></span></span><br><span class="line"><span class="language-xml">element:<span class="tag">&lt;<span class="name">News</span>/&gt;</span></span></span><br><span class="line"><span class="language-xml"></span></span><br><span class="line"><span class="language-xml">&#125;</span></span><br><span class="line"><span class="language-xml">  ]</span></span><br><span class="line"><span class="language-xml"></span></span><br><span class="line"><span class="language-xml">&#125;]</span></span><br></pre></td></tr></table></figure>
-
-
-
-
-
-
-<h2 id="10-v6-用useNavigate实现编程式导航，useHistory被移除"><a href="#10-v6-用useNavigate实现编程式导航，useHistory被移除" class="headerlink" title="10. v6 用useNavigate实现编程式导航，useHistory被移除"></a>10. v6 用useNavigate实现编程式导航，useHistory被移除</h2><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123;useNavigate&#125; <span class="keyword">from</span> <span class="string">&quot;react-router-dom&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> navigate = <span class="title function_">useNavigate</span>();</span><br><span class="line"></span><br><span class="line"><span class="title function_">navigate</span>(<span class="string">&quot;/welcome&quot;</span>);   <span class="comment">// push</span></span><br><span class="line"> <span class="title function_">navigate</span>(<span class="string">&#x27;/b&#x27;</span>, &#123; <span class="attr">state</span>: &#123; <span class="attr">name</span>: <span class="string">&#x27;zhou&#x27;</span> &#125; &#125;)</span><br></pre></td></tr></table></figure>
-
-
-<p>如果要重定向:</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="title function_">navigate</span>(<span class="string">&quot;/welcome&quot;</span>,&#123;<span class="attr">replace</span>:<span class="literal">true</span>&#125;);</span><br></pre></td></tr></table></figure>
-
-
-
-<p>除此之外，还可以使用navigate(-1)后退到前一页，使用navigate(-2)后退到前一页的前一页，navigate(1)前向导航，依此类推。</p>
-<p>使用 useLocation 接收 useNavigate传递过来的值</p>
-<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 接收跳转传过来的值</span></span><br><span class="line"><span class="keyword">import</span> &#123; useLocation &#125; <span class="keyword">from</span> <span class="string">&#x27;react-router-dom&#x27;</span></span><br><span class="line"><span class="keyword">const</span> location = <span class="title function_">useLocation</span>()</span><br><span class="line"><span class="keyword">const</span> &#123; state &#125; = location</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(location, state);</span><br></pre></td></tr></table></figure>
-
-
-
-
-
-<h2 id="11-hooks-中获取参数的方法"><a href="#11-hooks-中获取参数的方法" class="headerlink" title="11. hooks 中获取参数的方法"></a>11. hooks 中获取参数的方法</h2><p>useParams</p>
-<p>返回当前动态路由参数 </p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">Profile</span>(<span class="params"></span>) &#123;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">const</span> params = <span class="title function_">useParams</span>()</span><br><span class="line"></span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(params.<span class="property">userId</span>)</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> ()</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-
-<p>useSearchParams</p>
-<p>使用 useSearchParams hook 来访问查询参数(&#x2F;xx&#x2F;xx?userId&#x3D;123)。其用法和 useState 类似，会返回当前对象和更改它的方法。</p>
-<p>更改 searchParams 时，必须传入所有的查询参数，否则会覆盖已有参数。</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">Profile</span>(<span class="params"></span>) &#123;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">const</span> params = <span class="title function_">useSearchParams</span>()</span><br><span class="line"></span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(params.<span class="property">userId</span>)</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> ()</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-
-
-
-<h2 id="12-useRoutes-声明式的路由配置方式"><a href="#12-useRoutes-声明式的路由配置方式" class="headerlink" title="12. useRoutes 声明式的路由配置方式"></a>12. useRoutes 声明式的路由配置方式</h2><p>声明式路由中，不能写index, 可以让path: “” , 来实现显示默认组件;</p>
-<p>useRoutes函数，会返回已经渲染好的路由元素</p>
-<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> element = <span class="title function_">useRoutes</span>([</span><br><span class="line">&#123;</span><br><span class="line"></span><br><span class="line">  <span class="attr">path</span>: <span class="string">&quot;/&quot;</span>,</span><br><span class="line"></span><br><span class="line">  <span class="attr">element</span>: <span class="language-xml"><span class="tag">&lt;<span class="name">Dashboard</span> /&gt;</span></span>,</span><br><span class="line"></span><br><span class="line">  <span class="attr">children</span>: [</span><br><span class="line"></span><br><span class="line">      &#123;</span><br><span class="line"></span><br><span class="line">        <span class="attr">path</span>: <span class="string">&quot;&quot;</span>,</span><br><span class="line"></span><br><span class="line">        <span class="attr">element</span>: <span class="language-xml"><span class="tag">&lt;<span class="name">DashboardMessages</span> /&gt;</span></span></span><br><span class="line"></span><br><span class="line">      &#125;,</span><br><span class="line"></span><br><span class="line">      &#123;</span><br><span class="line"></span><br><span class="line">        <span class="attr">path</span>: <span class="string">&quot;/messages&quot;</span>,</span><br><span class="line"></span><br><span class="line">        <span class="attr">element</span>: <span class="language-xml"><span class="tag">&lt;<span class="name">DashboardMessages</span> /&gt;</span></span></span><br><span class="line"></span><br><span class="line">      &#125;,</span><br><span class="line"></span><br><span class="line">      &#123; <span class="attr">path</span>: <span class="string">&quot;/tasks&quot;</span>, <span class="attr">element</span>: <span class="language-xml"><span class="tag">&lt;<span class="name">DashboardTasks</span> /&gt;</span></span> &#125;</span><br><span class="line"></span><br><span class="line">  &#125;,</span><br><span class="line"></span><br><span class="line">  &#123; <span class="attr">path</span>: <span class="string">&quot;/team&quot;</span>, <span class="attr">element</span>: <span class="language-xml"><span class="tag">&lt;<span class="name">AboutPage</span> /&gt;</span></span> &#125;</span><br><span class="line"></span><br><span class="line">]);</span><br></pre></td></tr></table></figure>]]></content>
-  </entry>
-  <entry>
     <title>v2 与v3 的区别</title>
     <url>/2023/03/13/v2-%E4%B8%8Ev3-%E7%9A%84%E5%8C%BA%E5%88%AB/</url>
     <content><![CDATA[<p>首先我们说区别的时候需要先了解一下vue  vue 内部根据功能可以分为三大模块<br>第一个我们把他叫做响应性  也就是 reactivity<br>第二个叫做运行时  也就是 runtime<br>第三个叫做编辑器  也就是 complier<br>除了三个大的模块 还有一些composition Api 还有一些小的变化<br>那么我们说v2和v3的区别就从这几点说起<br>首先先说响应性  针对vue2 来说 他是通过 Object.defineProperty 来实现响应性的  它有一个作用 就是去监听指定对象的 指定属性的一个 getter 的行为和setter 行为  但是使用这个他是会出现一些问题的 就比如 当我们给data 新增一个对象 person  一旦我们给person这个对象新增一个属性的时候 他就不会是响应性的   之所以出现这个问题的原因 就是因为vue2 中 Object.definproperty的内部 它没有办法监听到我们新增的这个属性  所以说在vue2中 他又提供了一个方法叫做 Vue.$set 通过这个方法解决这个问题  但这明显是不合理的 所以在vue3中 引入了反射（Reflect）和代理（proxy）的一个概念  我们可以利用proxy直接代理一个普通对象  得到一个proxy 实例（代理对象）在vue3中我们把这个过程叫做 reactive 方法 但是proxy 它只能代理复杂数据类型的一个响应性  所以说 vue又额外提供了一个方法叫做 ref 的方法 用来处理 简单的数据类型的响应性， 这个方法在本质上并没有进行数据的监听而是构建了一个叫做 Reflmpl 的类， 通过 set 和get 标记了这个类里面的value方法   以此来进行实现  所以说我们的ref 必须使用  .value 触发 之所以这么做本质上就是在调用value 函数  </p>
@@ -524,7 +529,7 @@ visited 表示元素被点击后的状态格式：
   <entry>
     <title>vue3-antd-admin启动错误</title>
     <url>/2022/11/16/vue3-antd-admin%E5%90%AF%E5%8A%A8%E9%94%99%E8%AF%AF/</url>
-    <content><![CDATA[<p>1、启动vue3-antd-admin项目时报以下错误，则缺少esbuild.exe所致，所以我们需要在以下目录安装<br><img src="https://img-blog.csdnimg.cn/35278dc359384eb2b161799f376cc0ce.png" alt="在这里插入图片描述"></p>
+    <content><![CDATA[<p>1、启动vue3-antd-admin项目时报以下错误，则缺少esbuild.exe所致，所以我们需要在以下目录安装<br><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://img-blog.csdnimg.cn/35278dc359384eb2b161799f376cc0ce.png" alt="在这里插入图片描述"></p>
 <p>2、打开报错文件的目录，在cmd里输入 node .&#x2F;node_modules&#x2F;esbuild&#x2F;install.js</p>
 <p>3、完成； 重启项目：npm run dev</p>
 ]]></content>
@@ -608,7 +613,7 @@ visited 表示元素被点击后的状态格式：
     <title>什么是回流与重绘？</title>
     <url>/2019/01/10/%E5%9B%9E%E6%B5%81-%E9%87%8D%E7%BB%98/</url>
     <content><![CDATA[<h2 id="一、什么是回流与重绘"><a href="#一、什么是回流与重绘" class="headerlink" title="一、什么是回流与重绘"></a>一、什么是回流与重绘</h2><p> 他们就是浏览器解析HTML的一个过程。举个例子：<br>    在页面初始渲染的时候 ，一开始页面就是一个空白的页面，没有元素，后来我们添加新的元素使我们的页面布局发生了改变 这个过程就是回流与重绘。<br><em><strong>回流</strong></em>(Reflow)  就是引起Dom树结构变化，改变页面的 布局初始渲染阶段不可避免的就会发生回流<br><em><strong>重绘</strong></em> (Repaint)就是 我们在已经计算好位置大小的元素上给他进行样式的修改 ，他不会引起dom树的改变与页面格局的改变<br>    <strong>两者的联系</strong><br>    触发回流一定会触发重绘，触发重绘不一定会触发回流</p>
-<h4 id="浏览器解析渲染机制"><a href="#浏览器解析渲染机制" class="headerlink" title="浏览器解析渲染机制"></a>浏览器解析渲染机制</h4><p><img src="https://static.vue-js.com/2b56a950-9cdc-11eb-ab90-d9ae814b240d.png" alt="解析渲染"></p>
+<h4 id="浏览器解析渲染机制"><a href="#浏览器解析渲染机制" class="headerlink" title="浏览器解析渲染机制"></a>浏览器解析渲染机制</h4><p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://static.vue-js.com/2b56a950-9cdc-11eb-ab90-d9ae814b240d.png" alt="解析渲染"></p>
 <ol>
 <li><p>解析HTML，生成DOM树，解析CSS，生成CSSOM树</p>
 </li>
@@ -684,7 +689,7 @@ visited 表示元素被点击后的状态格式：
   <entry>
     <title>如何修改react项目端口号</title>
     <url>/2020/10/20/%E5%A6%82%E4%BD%95%E4%BF%AE%E6%94%B9react%E9%A1%B9%E7%9B%AE%E7%AB%AF%E5%8F%A3%E5%8F%B7/</url>
-    <content><![CDATA[<h4 id="我们一般react的默认端口号都是3000，当我们想要同时打开两个项目的时候他就会提示端口号占用，如何解决这个问题-，有两个办法："><a href="#我们一般react的默认端口号都是3000，当我们想要同时打开两个项目的时候他就会提示端口号占用，如何解决这个问题-，有两个办法：" class="headerlink" title="我们一般react的默认端口号都是3000，当我们想要同时打开两个项目的时候他就会提示端口号占用，如何解决这个问题 ，有两个办法："></a>我们一般react的默认端口号都是3000，当我们想要同时打开两个项目的时候他就会提示端口号占用，如何解决这个问题 ，有两个办法：</h4><h5 id="方法一："><a href="#方法一：" class="headerlink" title="方法一："></a>方法一：</h5><p>依次打开node_modules &#x3D;&gt; react-scripts &#x3D;&gt; scripts<br><img src="https://img-blog.csdnimg.cn/0ef110829bc048ec887c803924fa556d.png" alt="在这里插入图片描述"><br>然后点击进入start.js 文件夹 下滑找到第55行左右<br><img src="https://img-blog.csdnimg.cn/3a078a8fbd1c48c68fcccca73590c4b5.png" alt="在这里插入图片描述">直接修改3000改成你想要的端口号 重启项目就可以了 。</p>
+    <content><![CDATA[<h4 id="我们一般react的默认端口号都是3000，当我们想要同时打开两个项目的时候他就会提示端口号占用，如何解决这个问题-，有两个办法："><a href="#我们一般react的默认端口号都是3000，当我们想要同时打开两个项目的时候他就会提示端口号占用，如何解决这个问题-，有两个办法：" class="headerlink" title="我们一般react的默认端口号都是3000，当我们想要同时打开两个项目的时候他就会提示端口号占用，如何解决这个问题 ，有两个办法："></a>我们一般react的默认端口号都是3000，当我们想要同时打开两个项目的时候他就会提示端口号占用，如何解决这个问题 ，有两个办法：</h4><h5 id="方法一："><a href="#方法一：" class="headerlink" title="方法一："></a>方法一：</h5><p>依次打开node_modules &#x3D;&gt; react-scripts &#x3D;&gt; scripts<br><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://img-blog.csdnimg.cn/0ef110829bc048ec887c803924fa556d.png" alt="在这里插入图片描述"><br>然后点击进入start.js 文件夹 下滑找到第55行左右<br><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://img-blog.csdnimg.cn/3a078a8fbd1c48c68fcccca73590c4b5.png" alt="在这里插入图片描述">直接修改3000改成你想要的端口号 重启项目就可以了 。</p>
 <h5 id="方法二："><a href="#方法二：" class="headerlink" title="方法二："></a>方法二：</h5><p>这个方法就相对简单了  我们每次创建项目都会有一个package.json文件 ，这个文件是记录我们项目安装包的文件 </p>
 <p>我们打开这个文件 </p>
  <figure class="highlight js"><table><tr><td class="code"><pre><span class="line"> </span><br><span class="line"><span class="string">&quot;scripts&quot;</span>: &#123;</span><br><span class="line">  <span class="string">&quot;start&quot;</span>: <span class="string">&quot;react-scripts start&quot;</span>,</span><br><span class="line">  <span class="string">&quot;build&quot;</span>: <span class="string">&quot;react-scripts build&quot;</span>,</span><br><span class="line">  <span class="string">&quot;test&quot;</span>: <span class="string">&quot;react-scripts test&quot;</span>,</span><br><span class="line">  <span class="string">&quot;eject&quot;</span>: <span class="string">&quot;react-scripts eject&quot;</span></span><br><span class="line">&#125;,</span><br></pre></td></tr></table></figure>
@@ -697,6 +702,45 @@ visited 表示元素被点击后的状态格式：
     <title>深拷贝浅拷贝</title>
     <url>/2022/10/21/%E6%B7%B1%E6%8B%B7%E8%B4%9D%E6%B5%85%E6%8B%B7%E8%B4%9D/</url>
     <content><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1>]]></content>
+  </entry>
+  <entry>
+    <title>对盒子模型的理解</title>
+    <url>/2019/09/25/%E7%9B%92%E5%AD%90%E6%A8%A1%E5%9E%8B/</url>
+    <content><![CDATA[<h2 id="1-什么是盒子模型？"><a href="#1-什么是盒子模型？" class="headerlink" title="1.什么是盒子模型？"></a>1.什么是盒子模型？</h2><p>当对一个文档进行布局（layout）的时候，浏览器的渲染引擎会根据标准之一的 CSS 基础框盒模型（CSS basic box model），将所有元素表示为一个个矩形的盒子（box）</p>
+<p>一个盒子由四个部分组成：content、padding、border、margin<br><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://img-blog.csdnimg.cn/a89c2fdd216346b8bfa0cf681cec0154.png" alt="在这里插入图片描述"><br>如上图所示 </p>
+<ul>
+<li>Margin(外边距) - 清除边框外的区域，外边距是透明的。 这个区域无法放别的元素 </li>
+<li>Border(边框) - 围绕在内边距和内容外的边框。 可以设置 粗细  样式  颜色         <em>具体如何设置<a href="https://www.runoob.com/css/css-border.html">详情</a> 点击详情</em></li>
+<li>Padding(内边距) - 清除内容周围的区域，内边距是透明的。不可以是负值  会受background-color 影响</li>
+<li>Content(内容) - 盒子的内容，显示文本和图像。</li>
+</ul>
+<p>content的宽度加上padding + border + margin 的宽度也就是我们这个盒子的一个占地宽度  高同样 </p>
+<h2 id="2-盒子的区分"><a href="#2-盒子的区分" class="headerlink" title="2.盒子的区分"></a>2.盒子的区分</h2><p>盒子分为  W3C 标准盒子模型 和 IE 怪异盒子模型<br>默认情况下 ，我们说的盒子模型通常讲的就是W3C标准盒子 </p>
+<p>在标准盒子模型中 ：</p>
+<pre><code>盒子总宽度 = width + padding + border + margin;
+盒子总高度 = height + padding + border + margin
+也就是，width/height 只是内容高度，不包含 padding 和 border值
+</code></pre>
+<p>我们在设置宽高的时候设置的是内容  盒子具体占地大小 需要计算  </p>
+<p>怪异盒子模型 ：</p>
+<pre><code>盒子总宽度 = width + margin;
+盒子总高度 = height + margin;
+也就是，width/height 包含了 padding和 border值
+</code></pre>
+<p>这个是使用了css 中 <strong>box-sizing</strong>  之后的效果，  box-sizing 定义了引擎应该如何计算一个元素的总宽度和总高度</p>
+<ul>
+<li>content-box 默认值，元素的 width&#x2F;height 不包含padding，border，与标准盒子模型表现一致   </li>
+<li>border-box 元素的 width&#x2F;height 包含 padding，border，与怪异盒子模型表现一致</li>
+<li>inherit 指定 box-sizing 属性的值，应该从父元素继承</li>
+</ul>
+<p>当我们想使用怪异盒子的时候在我们的box-sizing属性中给他一个borer-box 就可以实现了 </p>
+]]></content>
+      <categories>
+        <category>通用知识</category>
+      </categories>
+      <tags>
+        <tag>html</tag>
+      </tags>
   </entry>
   <entry>
     <title>面试题</title>
@@ -994,7 +1038,7 @@ TypeScript 中引入了模块的概念，可以把声明、数据、函数和类
 <h2 id="69-说说你对版本管理的理解？常用的版本管理工具有哪些？"><a href="#69-说说你对版本管理的理解？常用的版本管理工具有哪些？" class="headerlink" title="69.说说你对版本管理的理解？常用的版本管理工具有哪些？"></a>69.说说你对版本管理的理解？常用的版本管理工具有哪些？</h2><p>版本控制就是一种软件工程技巧，借此能在开发的过程中，确保由不同人所编辑的同一程序文件都得到同步。通过版本控制，能记录任何工程项目内各个模块的改动历程，并为每次改动编上序号，版本控制能通过这些序号将程序恢复到之前的任意一状态，简言之，你的修改只要提交到版本控制系统，基本都能找回，版本控制系统就像一台时光机器，可以让你回到任何一个时间点。<br>版本管理根据类别可以分为三类<br>1、本地版本控制系统<br>此系统较为简单，很多系统中都有内置，适合管理文本。但是不支持远程操作，因此不适合多人版本开发<br>2、集中式版本控制系统<br>适合多人团队协作开发，代码集中化管理，但是必须联网，无法单机工作<br>3、分布式版本控制系统<br>适合多人团队协作开发、代码集中化管理、可以离线工作、每一个计算机都是一个完整仓库<br>常用的版本管理工具有CVS、Git、SVN、HG</p>
 <h2 id="70-说说你对Git的理解？"><a href="#70-说说你对Git的理解？" class="headerlink" title="70.说说你对Git的理解？"></a>70.说说你对Git的理解？</h2><p>Git是一个分布式版本控制软件，最初目的是为了更好地管理Linux内核开发而设计的。<br>分布式版本控制系统的客户端不只是提取最新版本的文件快照，而是把代码仓库完整的克隆下来。这么一来，如果任何一处协同工作的服务器发生故障，那么都可以用任何一个克隆出来的本地仓库恢复。<br>项目开始，只有一个原始版仓库，别的机器可以clone这个原始版本库，那么所有clone的机器，它们的版本库其实都是一样的，并没有主次之分。</p>
 <p>所以在实现团队协作的时候，只要有一台电脑充当服务器的角色，其他每个人都从这个“服务器”仓库clone一份到自己的电脑上，并且各自把各自的提交推送到服务器仓库里，也从服务器仓库中拉取别人的提交。</p>
-<h2 id="71-说说Git常用的命令有哪些"><a href="#71-说说Git常用的命令有哪些" class="headerlink" title="71.说说Git常用的命令有哪些"></a>71.说说Git常用的命令有哪些</h2><p>Git config 配置用户信息<br>Git init 初始化仓库<br>Git clone url 克隆代码<br>Git add . 提交全部文件到缓存区<br>Git diff 查看当前代码add后，会add哪些内容<br>Git status 查看当前分支状态<br>Git pull <state> 拉取远程仓库的分支与本地当前分支合并<br>Git commit -m “注释信息” 提交代码到本地仓库<br>Git merge &lt;分支名&gt; 合并分支<br>Git fetch 获取线上最新版信息记录，不合并<br>Git remote -v 显示所有远程仓库<br>Git push 上传本地仓库代码到远程仓库</p>
+<h2 id="71-说说Git常用的命令有哪些"><a href="#71-说说Git常用的命令有哪些" class="headerlink" title="71.说说Git常用的命令有哪些"></a>71.说说Git常用的命令有哪些</h2><p>Git config 配置用户信息<br>Git init 初始化仓库<br>Git clone url 克隆代码<br>Git add . 提交全部文件到缓存区<br>Git diff 查看当前代码add后，会add哪些内容<br>Git status 查看当前分支状态<br>Git pull <state> 拉取远程仓库的分支与本地当前分支合并<br>Git commit -m “注释信息” 提交代码到本地仓库<br>Git merge &lt;分支名&gt; 合并分支<br>Git fetch 获取线上最新版信息记录，不合并<br>Git remote -v 显示所有远程仓库<br>Git push 上传本地仓库代码到远程仓库</state></p>
 <h2 id="72-说说-git-发生冲突的场景？如何解决？"><a href="#72-说说-git-发生冲突的场景？如何解决？" class="headerlink" title="72.说说 git 发生冲突的场景？如何解决？"></a>72.说说 git 发生冲突的场景？如何解决？</h2><p>发生冲突的场景<br>多个分支代码合并到一个分支时<br>多个分支向同一个远程仓库分支推送<br>具体情况就是，多个分支修改了同一个文件或者多个分支修改了同一个文件的名称。<br>当本地修改的文件和目标远程仓库的同一个文件都有修改，这时，无论是pull&#x2F;push&#x2F;merge时都会发生冲突。<br>解决方法：<br>修改文件之前先git pull 获取远程最新的代码，同步完之后在对代码进行修改。</p>
 <h2 id="73-前端工程化的特点"><a href="#73-前端工程化的特点" class="headerlink" title="73.前端工程化的特点"></a>73.前端工程化的特点</h2><p>前端工程化可以分成四个方面来说，分别为模块化、组件化、规范化和自动化。</p>
 <p>模块化<br>模块化是指将一个文件拆分成多个相互依赖的文件，最后进行统一的打包和加载，这样能够很好的保证高效的多人协作。其中包含</p>
@@ -1005,49 +1049,5 @@ TypeScript 中引入了模块的概念，可以把声明、数据、函数和类
 <p>以上就是我所了解的前端工程化，以工程的角度去理解我们的web前端。工程是工程，而不是某项技术。</p>
 <h2 id="74为什么-GUI-渲染线程为什么与JS-引擎线程互斥"><a href="#74为什么-GUI-渲染线程为什么与JS-引擎线程互斥" class="headerlink" title="74为什么 GUI 渲染线程为什么与JS 引擎线程互斥"></a>74为什么 GUI 渲染线程为什么与JS 引擎线程互斥</h2><p>这是由于 S 是可以操作 DOM 的，如果同时修改元素属性并同时染界面(即 S线程和 UI线程同时运行)<br>。那么渲沈线程前后获得的元素就可能不一致了<br>。因此，为了防止渲染出现不可预期的结果，浏览器设定 GUI渲染线程和]S引擎线程为互斥关系<br>。Is引擎线程执行完后&#x3D;》GUI 染页面操作<br>当IS引擎线程执行时 GUI渲染线程会被挂起，GUI更新则会被保存在一个队列中等待S引擎线程空闲时立即被执行</p>
 ]]></content>
-  </entry>
-  <entry>
-    <title>对盒子模型的理解</title>
-    <url>/2019/09/25/%E7%9B%92%E5%AD%90%E6%A8%A1%E5%9E%8B/</url>
-    <content><![CDATA[<h2 id="1-什么是盒子模型？"><a href="#1-什么是盒子模型？" class="headerlink" title="1.什么是盒子模型？"></a>1.什么是盒子模型？</h2><p>当对一个文档进行布局（layout）的时候，浏览器的渲染引擎会根据标准之一的 CSS 基础框盒模型（CSS basic box model），将所有元素表示为一个个矩形的盒子（box）</p>
-<p>一个盒子由四个部分组成：content、padding、border、margin<br><img src="https://img-blog.csdnimg.cn/a89c2fdd216346b8bfa0cf681cec0154.png" alt="在这里插入图片描述"><br>如上图所示 </p>
-<ul>
-<li>Margin(外边距) - 清除边框外的区域，外边距是透明的。 这个区域无法放别的元素 </li>
-<li>Border(边框) - 围绕在内边距和内容外的边框。 可以设置 粗细  样式  颜色         <em>具体如何设置<a href="https://www.runoob.com/css/css-border.html">详情</a> 点击详情</em></li>
-<li>Padding(内边距) - 清除内容周围的区域，内边距是透明的。不可以是负值  会受background-color 影响</li>
-<li>Content(内容) - 盒子的内容，显示文本和图像。</li>
-</ul>
-<p>content的宽度加上padding + border + margin 的宽度也就是我们这个盒子的一个占地宽度  高同样 </p>
-<h2 id="2-盒子的区分"><a href="#2-盒子的区分" class="headerlink" title="2.盒子的区分"></a>2.盒子的区分</h2><p>盒子分为  W3C 标准盒子模型 和 IE 怪异盒子模型<br>默认情况下 ，我们说的盒子模型通常讲的就是W3C标准盒子 </p>
-<p>在标准盒子模型中 ：</p>
-<pre><code>盒子总宽度 = width + padding + border + margin;
-盒子总高度 = height + padding + border + margin
-也就是，width/height 只是内容高度，不包含 padding 和 border值
-</code></pre>
-<p>我们在设置宽高的时候设置的是内容  盒子具体占地大小 需要计算  </p>
-<p>怪异盒子模型 ：</p>
-<pre><code>盒子总宽度 = width + margin;
-盒子总高度 = height + margin;
-也就是，width/height 包含了 padding和 border值
-</code></pre>
-<p>这个是使用了css 中 <strong>box-sizing</strong>  之后的效果，  box-sizing 定义了引擎应该如何计算一个元素的总宽度和总高度</p>
-<ul>
-<li>content-box 默认值，元素的 width&#x2F;height 不包含padding，border，与标准盒子模型表现一致   </li>
-<li>border-box 元素的 width&#x2F;height 包含 padding，border，与怪异盒子模型表现一致</li>
-<li>inherit 指定 box-sizing 属性的值，应该从父元素继承</li>
-</ul>
-<p>当我们想使用怪异盒子的时候在我们的box-sizing属性中给他一个borer-box 就可以实现了 </p>
-]]></content>
-      <categories>
-        <category>通用知识</category>
-      </categories>
-      <tags>
-        <tag>html</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Angular 框架使用</title>
-    <url>/2017/09/26/Angular%E6%A1%86%E6%9E%B6/</url>
-    <content><![CDATA[<h1 id="Angular-框架"><a href="#Angular-框架" class="headerlink" title="Angular 框架"></a>Angular 框架</h1>]]></content>
   </entry>
 </search>
