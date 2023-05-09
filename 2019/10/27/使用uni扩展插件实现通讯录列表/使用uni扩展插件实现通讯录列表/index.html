@@ -1,0 +1,286 @@
+<!DOCTYPE html><html lang="ch" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"><title>使用uni-app 扩展插件实现通讯录列表 | 小蓝の窝</title><meta name="author" content="小蓝女士"><meta name="copyright" content="小蓝女士"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="使用uniapp 的扩展插件实现通讯录列表  实现有头像显示头像没有头像 显示名称第一个字 首先需要去官网下载扩展的插件包  然后进行导入  我们就可以在uni_modules 中看到这个扩展得插件了  打开uni-indexed-list的vue文件    通过这里我们发现 数据是通过options 传递的 我们找到options  这里就是我们拿到调用页面传过去的数据  做数据处理的地方 通">
+<meta property="og:type" content="article">
+<meta property="og:title" content="使用uni-app 扩展插件实现通讯录列表">
+<meta property="og:url" content="http://example.com/2019/10/27/%E4%BD%BF%E7%94%A8uni%E6%89%A9%E5%B1%95%E6%8F%92%E4%BB%B6%E5%AE%9E%E7%8E%B0%E9%80%9A%E8%AE%AF%E5%BD%95%E5%88%97%E8%A1%A8/%E4%BD%BF%E7%94%A8uni%E6%89%A9%E5%B1%95%E6%8F%92%E4%BB%B6%E5%AE%9E%E7%8E%B0%E9%80%9A%E8%AE%AF%E5%BD%95%E5%88%97%E8%A1%A8/index.html">
+<meta property="og:site_name" content="小蓝の窝">
+<meta property="og:description" content="使用uniapp 的扩展插件实现通讯录列表  实现有头像显示头像没有头像 显示名称第一个字 首先需要去官网下载扩展的插件包  然后进行导入  我们就可以在uni_modules 中看到这个扩展得插件了  打开uni-indexed-list的vue文件    通过这里我们发现 数据是通过options 传递的 我们找到options  这里就是我们拿到调用页面传过去的数据  做数据处理的地方 通">
+<meta property="og:locale">
+<meta property="og:image" content="http://example.com/img/xiao.jpg">
+<meta property="article:published_time" content="2019-10-27T12:55:08.000Z">
+<meta property="article:modified_time" content="2023-04-06T02:22:42.479Z">
+<meta property="article:author" content="小蓝女士">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/img/xiao.jpg"><link rel="shortcut icon" href="/img/xiao.jpg"><link rel="canonical" href="http://example.com/2019/10/27/%E4%BD%BF%E7%94%A8uni%E6%89%A9%E5%B1%95%E6%8F%92%E4%BB%B6%E5%AE%9E%E7%8E%B0%E9%80%9A%E8%AE%AF%E5%BD%95%E5%88%97%E8%A1%A8/%E4%BD%BF%E7%94%A8uni%E6%89%A9%E5%B1%95%E6%8F%92%E4%BB%B6%E5%AE%9E%E7%8E%B0%E9%80%9A%E8%AE%AF%E5%BD%95%E5%88%97%E8%A1%A8/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"languages":{"hits_empty":"We didn't find any results for the search: ${query}"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: 'Copy successfully',
+    error: 'Copy error',
+    noSupport: 'The browser does not support'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: 'Just',
+    min: 'minutes ago',
+    hour: 'hours ago',
+    day: 'days ago',
+    month: 'months ago'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: true,
+  isAnchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '使用uni-app 扩展插件实现通讯录列表',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: false,
+  postUpdate: '2023-04-06 10:22:42'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><link rel="stylesheet" href="/css/transpancy.css"><meta name="generator" content="Hexo 6.3.0"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">Loading...</div></div></div><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/img/xiao.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">19</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">2</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">1</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/guestbook/"><i class="fa-fw fas fa-book"></i><span> 留言</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="not-top-img" id="page-header"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">小蓝の窝</a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> Search</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/guestbook/"><i class="fa-fw fas fa-book"></i><span> 留言</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav></header><main class="layout" id="content-inner"><div id="post"><div id="post-info"><h1 class="post-title">使用uni-app 扩展插件实现通讯录列表</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">Created</span><time class="post-meta-date-created" datetime="2019-10-27T12:55:08.000Z" title="Created 2019-10-27 20:55:08">2019-10-27</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2023-04-06T02:22:42.479Z" title="Updated 2023-04-06 10:22:42">2023-04-06</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="使用uni-app 扩展插件实现通讯录列表"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">Post View:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div><article class="post-content" id="article-container"><p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/2019/10/27/%E4%BD%BF%E7%94%A8uni%E6%89%A9%E5%B1%95%E6%8F%92%E4%BB%B6%E5%AE%9E%E7%8E%B0%E9%80%9A%E8%AE%AF%E5%BD%95%E5%88%97%E8%A1%A8/%E4%BD%BF%E7%94%A8uni%E6%89%A9%E5%B1%95%E6%8F%92%E4%BB%B6%E5%AE%9E%E7%8E%B0%E9%80%9A%E8%AE%AF%E5%BD%95%E5%88%97%E8%A1%A8/myblog\source_posts\使用uni扩展插件实现通讯录列表\image-20230331161926026.png" alt="image-20230331161926026"></p>
+<p>使用uniapp 的扩展插件实现通讯录列表  实现有头像显示头像没有头像 显示名称第一个字</p>
+<p>首先需要去官网下载扩展的插件包</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/2019/10/27/%E4%BD%BF%E7%94%A8uni%E6%89%A9%E5%B1%95%E6%8F%92%E4%BB%B6%E5%AE%9E%E7%8E%B0%E9%80%9A%E8%AE%AF%E5%BD%95%E5%88%97%E8%A1%A8/%E4%BD%BF%E7%94%A8uni%E6%89%A9%E5%B1%95%E6%8F%92%E4%BB%B6%E5%AE%9E%E7%8E%B0%E9%80%9A%E8%AE%AF%E5%BD%95%E5%88%97%E8%A1%A8/myblog\source_posts\使用uni扩展插件实现通讯录列表\image-20230331162438885.png" alt="image-20230331162438885"></p>
+<p>然后进行导入</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/2019/10/27/%E4%BD%BF%E7%94%A8uni%E6%89%A9%E5%B1%95%E6%8F%92%E4%BB%B6%E5%AE%9E%E7%8E%B0%E9%80%9A%E8%AE%AF%E5%BD%95%E5%88%97%E8%A1%A8/%E4%BD%BF%E7%94%A8uni%E6%89%A9%E5%B1%95%E6%8F%92%E4%BB%B6%E5%AE%9E%E7%8E%B0%E9%80%9A%E8%AE%AF%E5%BD%95%E5%88%97%E8%A1%A8/myblog\source_posts\使用uni扩展插件实现通讯录列表\image-20230331162855673.png" alt="image-20230331162438885"></p>
+<p>我们就可以在uni_modules 中看到这个扩展得插件了  打开uni-indexed-list的vue文件  </p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/2019/10/27/%E4%BD%BF%E7%94%A8uni%E6%89%A9%E5%B1%95%E6%8F%92%E4%BB%B6%E5%AE%9E%E7%8E%B0%E9%80%9A%E8%AE%AF%E5%BD%95%E5%88%97%E8%A1%A8/%E4%BD%BF%E7%94%A8uni%E6%89%A9%E5%B1%95%E6%8F%92%E4%BB%B6%E5%AE%9E%E7%8E%B0%E9%80%9A%E8%AE%AF%E5%BD%95%E5%88%97%E8%A1%A8/myblog\source_posts\使用uni扩展插件实现通讯录列表\image-20230331163101734.png" alt="image-20230331162438885"></p>
+<p>通过这里我们发现 数据是通过options 传递的 我们找到options</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/2019/10/27/%E4%BD%BF%E7%94%A8uni%E6%89%A9%E5%B1%95%E6%8F%92%E4%BB%B6%E5%AE%9E%E7%8E%B0%E9%80%9A%E8%AE%AF%E5%BD%95%E5%88%97%E8%A1%A8/%E4%BD%BF%E7%94%A8uni%E6%89%A9%E5%B1%95%E6%8F%92%E4%BB%B6%E5%AE%9E%E7%8E%B0%E9%80%9A%E8%AE%AF%E5%BD%95%E5%88%97%E8%A1%A8/myblog\source_posts\使用uni扩展插件实现通讯录列表\image-20230331163226552.png" alt="image-20230331162438885"></p>
+<p>这里就是我们拿到调用页面传过去的数据  做数据处理的地方 通过我们想要传递的数据进行修改 </p>
+<p>接下来修改uni-indexed-list-item的vue文件 找到这里</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/2019/10/27/%E4%BD%BF%E7%94%A8uni%E6%89%A9%E5%B1%95%E6%8F%92%E4%BB%B6%E5%AE%9E%E7%8E%B0%E9%80%9A%E8%AE%AF%E5%BD%95%E5%88%97%E8%A1%A8/%E4%BD%BF%E7%94%A8uni%E6%89%A9%E5%B1%95%E6%8F%92%E4%BB%B6%E5%AE%9E%E7%8E%B0%E9%80%9A%E8%AE%AF%E5%BD%95%E5%88%97%E8%A1%A8/myblog\source_posts\使用uni扩展插件实现通讯录列表\image-20230331163545322.png" alt="image-20230331162438885"></p>
+<p>这里是页面显示的样式的代码 </p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/2019/10/27/%E4%BD%BF%E7%94%A8uni%E6%89%A9%E5%B1%95%E6%8F%92%E4%BB%B6%E5%AE%9E%E7%8E%B0%E9%80%9A%E8%AE%AF%E5%BD%95%E5%88%97%E8%A1%A8/%E4%BD%BF%E7%94%A8uni%E6%89%A9%E5%B1%95%E6%8F%92%E4%BB%B6%E5%AE%9E%E7%8E%B0%E9%80%9A%E8%AE%AF%E5%BD%95%E5%88%97%E8%A1%A8/myblog\source_posts\使用uni扩展插件实现通讯录列表\image-20230331163657923.png" alt="image-20230331162438885"></p>
+<p>这一行就是修改每条信息的内容 我这里是添加了一个图片 和一个div 通过判断数据是否有img 进行显示</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/2019/10/27/%E4%BD%BF%E7%94%A8uni%E6%89%A9%E5%B1%95%E6%8F%92%E4%BB%B6%E5%AE%9E%E7%8E%B0%E9%80%9A%E8%AE%AF%E5%BD%95%E5%88%97%E8%A1%A8/%E4%BD%BF%E7%94%A8uni%E6%89%A9%E5%B1%95%E6%8F%92%E4%BB%B6%E5%AE%9E%E7%8E%B0%E9%80%9A%E8%AE%AF%E5%BD%95%E5%88%97%E8%A1%A8/myblog\source_posts\使用uni扩展插件实现通讯录列表\image-20230331163928921.png" alt="image-20230331162438885"></p>
+<p>调用页面的数据这么传递</p>
+<p>这样页面的一个样式就实现了 ，就是开头的那个样式</p>
+<p>到这里就基本上完成了但是我看着这个数据不是很舒服 这样看来岂不是我每次添加一个数据都要进行分类才可以添加我想要这个样子的数据</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/2019/10/27/%E4%BD%BF%E7%94%A8uni%E6%89%A9%E5%B1%95%E6%8F%92%E4%BB%B6%E5%AE%9E%E7%8E%B0%E9%80%9A%E8%AE%AF%E5%BD%95%E5%88%97%E8%A1%A8/%E4%BD%BF%E7%94%A8uni%E6%89%A9%E5%B1%95%E6%8F%92%E4%BB%B6%E5%AE%9E%E7%8E%B0%E9%80%9A%E8%AE%AF%E5%BD%95%E5%88%97%E8%A1%A8/myblog\source_posts\使用uni扩展插件实现通讯录列表\image-20230406093948131.png" alt="image-20230406093948131"></p>
+<p>于是我对数据进行了一个简单的处理</p>
+<p>这个是把字符串变成拼音的 可以自己写一个也可以用插件 我用的插件需要</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm i pinyin --save</span><br></pre></td></tr></table></figure>
+
+
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">toPinyin(str) &#123;</span><br><span class="line">			if (!str) return &#x27;&#x27;;</span><br><span class="line">			return pinyin(str, &#123;</span><br><span class="line">				style: pinyin.STYLE_NORMAL, // 设置拼音风格</span><br><span class="line">				heteronym: false // 是否启用多音字模式</span><br><span class="line">			&#125;).join(&#x27;&#x27;);</span><br><span class="line">		&#125;,</span><br></pre></td></tr></table></figure>
+
+
+
+<p>最后定义一个方法在数据初始化的时候调用</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line">getfriendslist() &#123;</span><br><span class="line">			const friendlist = &#123;&#125;</span><br><span class="line">			this.friends.forEach(i =&gt; &#123;</span><br><span class="line">			//这里是提取字段的一个字母</span><br><span class="line">			let first = this.toPinyin(i.name).substring(0, 1).toUpperCase();</span><br><span class="line">			//通过正则判断是否是26个字母之内的不是的就属于 # 类 然后进行分类</span><br><span class="line">				if(!(/^[a-zA-Z]+$/.test(first)))&#123;first=&#x27;#&#x27;&#125;</span><br><span class="line">				</span><br><span class="line">				if (friendlist[first]) &#123;</span><br><span class="line">					friendlist[first].push(i);</span><br><span class="line">				&#125; else &#123;</span><br><span class="line">					friendlist[first] = [i];</span><br><span class="line">				&#125;</span><br><span class="line"></span><br><span class="line">			&#125;);</span><br><span class="line"></span><br><span class="line">			// 	 /**</span><br><span class="line">			// 	  * sort 默认是根据每个元素的 ASCII 码进行排序</span><br><span class="line">			// 	  * 对于数字可以直接比较 但如果是字符就没有意义</span><br><span class="line">			// 	  * 规则：如果 a - b 是负数，也就是 a &lt; b , 那么 a 在前面，返回-1。</span><br><span class="line">			// 	  * 如果 a - b 是正数，也就是 a &gt; b , 那么 b 在前面，返回 1</span><br><span class="line">			// 	  * 如果两个相等，那就啥也不干，返回 0</span><br><span class="line">			// 	  */</span><br><span class="line">				</span><br><span class="line">                </span><br><span class="line">                //进行排序</span><br><span class="line">				 let keys = Object.keys(friendlist).sort((a, b) =&gt; (a &lt; b ? -1 : a &gt; b ? 1 : 0));</span><br><span class="line">					let arr = []</span><br><span class="line">					for (let i in friendlist)&#123;</span><br><span class="line">                	// 改变数据</span><br><span class="line">						arr.push(&#123;</span><br><span class="line">							letter:i,</span><br><span class="line">							data:friendlist[i]</span><br><span class="line">						&#125;)</span><br><span class="line">					&#125;</span><br><span class="line">					//  把改变好的数据复制给要遍历的数组</span><br><span class="line">					this.list = arr</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;,</span><br></pre></td></tr></table></figure>
+
+
+
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">Author: </span><span class="post-copyright-info"><a href="http://example.com">小蓝女士</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">Link: </span><span class="post-copyright-info"><a href="http://example.com/2019/10/27/%E4%BD%BF%E7%94%A8uni%E6%89%A9%E5%B1%95%E6%8F%92%E4%BB%B6%E5%AE%9E%E7%8E%B0%E9%80%9A%E8%AE%AF%E5%BD%95%E5%88%97%E8%A1%A8/%E4%BD%BF%E7%94%A8uni%E6%89%A9%E5%B1%95%E6%8F%92%E4%BB%B6%E5%AE%9E%E7%8E%B0%E9%80%9A%E8%AE%AF%E5%BD%95%E5%88%97%E8%A1%A8/">http://example.com/2019/10/27/%E4%BD%BF%E7%94%A8uni%E6%89%A9%E5%B1%95%E6%8F%92%E4%BB%B6%E5%AE%9E%E7%8E%B0%E9%80%9A%E8%AE%AF%E5%BD%95%E5%88%97%E8%A1%A8/%E4%BD%BF%E7%94%A8uni%E6%89%A9%E5%B1%95%E6%8F%92%E4%BB%B6%E5%AE%9E%E7%8E%B0%E9%80%9A%E8%AE%AF%E5%BD%95%E5%88%97%E8%A1%A8/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">Copyright Notice: </span><span class="post-copyright-info">All articles in this blog are licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless stating additionally.</span></div></div><div class="tag_share"><div class="post-meta__tag-list"></div><div class="post_share"><div class="social-share" data-image="/img/xiao.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2019/10/27/%E5%93%8D%E5%BA%94%E5%BC%8F%E5%B8%83%E5%B1%80/"><img class="prev-cover" src="/img/fengyuanwanye.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">Previous Post</div><div class="prev_info">响应式布局</div></div></a></div><div class="next-post pull-right"><a href="/2019/09/25/%E7%9B%92%E5%AD%90%E6%A8%A1%E5%9E%8B/"><img class="next-cover" src="https://img-blog.csdnimg.cn/a89c2fdd216346b8bfa0cf681cec0154.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">Next Post</div><div class="next_info">对盒子模型的理解</div></div></a></div></nav><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> Comment</span></div></div><div class="comment-wrap"><div><div class="vcomment" id="vcomment"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="/img/xiao.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">小蓝女士</div><div class="author-info__description"></div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">19</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">2</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">1</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/isyayaya"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>Announcement</span></div><div class="announcement_content">随手记</div></div><div class="sticky_layout"><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>Recent Post</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2023/03/13/v2-%E4%B8%8Ev3-%E7%9A%84%E5%8C%BA%E5%88%AB/" title="v2 与v3 的区别">v2 与v3 的区别</a><time datetime="2023-03-13T03:20:39.000Z" title="Created 2023-03-13 11:20:39">2023-03-13</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2022/11/16/vue3-antd-admin%E5%90%AF%E5%8A%A8%E9%94%99%E8%AF%AF/" title="vue3-antd-admin启动错误">vue3-antd-admin启动错误</a><time datetime="2022-11-16T03:51:17.000Z" title="Created 2022-11-16 11:51:17">2022-11-16</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2022/11/16/%E9%9D%A2%E8%AF%95%E9%A2%98%E6%80%BB%E7%BB%93/" title="面试题">面试题</a><time datetime="2022-11-16T03:51:17.000Z" title="Created 2022-11-16 11:51:17">2022-11-16</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2022/10/21/%E6%B7%B1%E6%8B%B7%E8%B4%9D%E6%B5%85%E6%8B%B7%E8%B4%9D/" title="深拷贝浅拷贝">深拷贝浅拷贝</a><time datetime="2022-10-21T08:31:43.000Z" title="Created 2022-10-21 16:31:43">2022-10-21</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2022/09/26/Angular%E6%A1%86%E6%9E%B6/" title="Angular 框架使用">Angular 框架使用</a><time datetime="2022-09-26T04:22:12.000Z" title="Created 2022-09-26 12:22:12">2022-09-26</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2019 - 2023 By 小蓝女士</div><div class="framework-info"><span>Framework </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>Theme </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="Read Mode"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="Toggle Between Light And Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="Toggle between single-column and double-column"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="Setting"><i class="fas fa-cog fa-spin"></i></button><a id="to_comment" href="#post-comment" title="Scroll To Comments"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="Back To Top"><i class="fas fa-arrow-up"></i></button></div></div><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">Search</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  Loading the Database</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="Search for Posts" type="text"/></div></div><hr/><div id="local-search-results"></div></div></div><div id="search-mask"></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload/dist/lazyload.iife.min.js"></script><script src="/js/search/local-search.js"></script><script>var preloader = {
+  endLoading: () => {
+    document.body.style.overflow = 'auto';
+    document.getElementById('loading-box').classList.add("loaded")
+  },
+  initLoading: () => {
+    document.body.style.overflow = '';
+    document.getElementById('loading-box').classList.remove("loaded")
+
+  }
+}
+window.addEventListener('load',preloader.endLoading())</script><div class="js-pjax"><script>function loadValine () {
+  function initValine () {
+    const valine = new Valine(Object.assign({
+      el: '#vcomment',
+      appId: 'jH24wJMjTXATTGURJFG9se39-gzGzoHsz',
+      appKey: 'vdSTK33FKQK7s9RJvfvxhymq',
+      avatar: 'monsterid',
+      serverURLs: '',
+      emojiMaps: "",
+      path: window.location.pathname,
+      visitor: true
+    }, null))
+  }
+
+  if (typeof Valine === 'function') initValine() 
+  else getScript('https://cdn.jsdelivr.net/npm/valine/dist/Valine.min.js').then(initValine)
+}
+
+if ('Valine' === 'Valine' || !true) {
+  if (true) btf.loadComment(document.getElementById('vcomment'),loadValine)
+  else setTimeout(loadValine, 0)
+} else {
+  function loadOtherComment () {
+    loadValine()
+  }
+}</script></div><div class="aplayer no-destroy" data-id="7112142563" data-server="netease" data-type="playlist" data-fixed="true" data-autoplay="true" data-lrcType="-1" style = "margin:20; width:300"> </div><script defer="defer" id="fluttering_ribbon" mobile="true" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/canvas-fluttering-ribbon.min.js"></script><script id="canvas_nest" defer="defer" color="0,0,255" opacity="1" zIndex="-1" count="99" mobile="true" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/canvas-nest.min.js"></script><script id="click-heart" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/click-heart.min.js" async="async" mobile="true"></script><script id="click-show-text" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/click-show-text.min.js" data-mobile="false" data-text="欢迎,来到,丫丫的博客" data-fontsize="24px" data-random="false" async="async"></script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.js"></script><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/metingjs/dist/Meting.min.js"></script><script src="https://cdn.jsdelivr.net/npm/pjax/pjax.min.js"></script><script>let pjaxSelectors = ["head > title","#config-diff","#body-wrap","#rightside-config-hide","#rightside-config-show",".js-pjax"]
+
+var pjax = new Pjax({
+  elements: 'a:not([target="_blank"])',
+  selectors: pjaxSelectors,
+  cacheBust: false,
+  analytics: false,
+  scrollRestoration: false
+})
+
+document.addEventListener('pjax:send', function () {
+
+  // removeEventListener scroll 
+  window.tocScrollFn && window.removeEventListener('scroll', window.tocScrollFn)
+  window.scrollCollect && window.removeEventListener('scroll', scrollCollect)
+
+  typeof preloader === 'object' && preloader.initLoading()
+  document.getElementById('rightside').style.cssText = "opacity: ''; transform: ''"
+  
+  if (window.aplayers) {
+    for (let i = 0; i < window.aplayers.length; i++) {
+      if (!window.aplayers[i].options.fixed) {
+        window.aplayers[i].destroy()
+      }
+    }
+  }
+
+  typeof typed === 'object' && typed.destroy()
+
+  //reset readmode
+  const $bodyClassList = document.body.classList
+  $bodyClassList.contains('read-mode') && $bodyClassList.remove('read-mode')
+
+  typeof disqusjs === 'object' && disqusjs.destroy()
+})
+
+document.addEventListener('pjax:complete', function () {
+  window.refreshFn()
+
+  document.querySelectorAll('script[data-pjax]').forEach(item => {
+    const newScript = document.createElement('script')
+    const content = item.text || item.textContent || item.innerHTML || ""
+    Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+    newScript.appendChild(document.createTextNode(content))
+    item.parentNode.replaceChild(newScript, item)
+  })
+
+  GLOBAL_CONFIG.islazyload && window.lazyLoadInstance.update()
+
+  typeof chatBtnFn === 'function' && chatBtnFn()
+  typeof panguInit === 'function' && panguInit()
+
+  // google analytics
+  typeof gtag === 'function' && gtag('config', '', {'page_path': window.location.pathname});
+
+  // baidu analytics
+  typeof _hmt === 'object' && _hmt.push(['_trackPageview',window.location.pathname]);
+
+  typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
+
+  // prismjs
+  typeof Prism === 'object' && Prism.highlightAll()
+
+  typeof preloader === 'object' && preloader.endLoading()
+})
+
+document.addEventListener('pjax:error', (e) => {
+  if (e.request.status === 404) {
+    pjax.loadUrl('/404.html')
+  }
+})</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
